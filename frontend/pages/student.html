@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student360 | Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-a: #56ab2f;
+            --bg-b: #a8e063;
+            --sidebar-color-1: #2f8f46;
+            --sidebar-color-2: #89d36c;
+            --text-main-color: #124b2e;
+            --text-muted-color: #4b7a63;
+            --surface: #ffffff;
+            --surface-strong: #ffffff;
+            --text-main: #124b2e;
+            --text-muted: #4b7a63;
+            --danger: #ff6b6b;
+            --success: #32d583;
+            --warning: #fbbf24;
+            --card-shadow: rgba(32, 86, 56, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Poppins", sans-serif;
+            min-height: 100vh;
+            color: var(--text-main-color);
+            background: #ffffff;
+        }
+
+        .app {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+        }
+
+        .sidebar {
+            background: linear-gradient(160deg, var(--sidebar-color-1), var(--sidebar-color-2));
+            border-right: 1px solid rgba(17, 84, 41, 0.25);
+            padding: 24px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+            color: #f8fff9;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 10px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .brand img {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(255, 255, 255, 0.7);
+        }
+
+        .brand h1 {
+            font-size: 18px;
+            line-height: 1.2;
+        }
+
+        .student-card {
+            background: rgba(255, 255, 255, 0.18);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            border-radius: 14px;
+            padding: 14px;
+        }
+
+        .student-card p {
+            font-size: 12px;
+            color: rgba(245, 255, 247, 0.9);
+        }
+
+        .student-card h2 {
+            margin-top: 4px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .menu {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: #f8fff9;
+            display: block;
+            padding: 12px 14px;
+            border-radius: 12px;
+            border: 1px solid transparent;
+            background: rgba(255, 255, 255, 0.14);
+            transition: 0.25s ease;
+        }
+
+        .menu a:hover,
+        .menu a.active {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.55);
+            transform: translateX(4px);
+        }
+
+        .main {
+            background: #ffffff;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            background: var(--surface);
+            border: 1px solid #cdebd8;
+            border-radius: 16px;
+            padding: 14px 16px;
+            box-shadow: 0 10px 24px var(--card-shadow);
+        }
+
+        .welcome h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-main-color);
+        }
+
+        .welcome p {
+            font-size: 13px;
+            color: var(--text-muted-color);
+        }
+
+        .top-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .icon-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            border: 1px solid var(--sidebar-color-1);
+            background: rgba(47, 143, 70, 0.1);
+            display: grid;
+            place-items: center;
+        }
+
+        .avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 2px solid var(--sidebar-color-1);
+            background: linear-gradient(135deg, rgba(47, 143, 70, 0.15), rgba(137, 211, 108, 0.15));
+            color: var(--text-main-color);
+            font-weight: 700;
+            display: grid;
+            place-items: center;
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(140px, 1fr));
+            gap: 12px;
+        }
+
+        .kpi-card {
+            background: var(--surface);
+            border: 1px solid #d7efdf;
+            border-radius: 14px;
+            padding: 14px;
+            box-shadow: 0 10px 24px var(--card-shadow);
+        }
+
+        .kpi-card p {
+            font-size: 12px;
+            color: var(--text-muted-color);
+        }
+
+        .kpi-card h4 {
+            margin-top: 8px;
+            font-size: 24px;
+            color: var(--text-main-color);
+        }
+
+        .kpi-card small {
+            font-size: 12px;
+            color: var(--text-muted-color);
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1.15fr 1fr;
+            gap: 14px;
+        }
+
+        .charts-grid > :only-child {
+            grid-column: 1 / -1;
+        }
+
+        .panel {
+            background: var(--surface-strong);
+            border: 1px solid #d7efdf;
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 10px 24px var(--card-shadow);
+        }
+
+        .panel h3 {
+            font-size: 16px;
+            margin-bottom: 14px;
+            color: var(--text-main-color);
+        }
+
+        .bar-chart {
+            height: 230px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .bar {
+            width: 18%;
+            border-radius: 10px 10px 4px 4px;
+            background: linear-gradient(180deg, var(--sidebar-color-1), var(--sidebar-color-2));
+            position: relative;
+        }
+
+        .bar span {
+            position: absolute;
+            top: -24px;
+            width: 100%;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-main-color);
+            font-weight: 600;
+        }
+
+        .line-wrap {
+            width: 100%;
+            overflow: hidden;
+            border-radius: 10px;
+            background: #f4fbf6;
+            border: 1px solid #d7efdf;
+            padding: 10px;
+        }
+
+        .axis-label {
+            font-size: 11px;
+            fill: #4b7a63;
+            text-anchor: middle;
+        }
+
+        .axis-label.y-axis {
+            text-anchor: end;
+        }
+
+        .subjects {
+            margin-top: 14px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .subject-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .subject-list li {
+            background: #f6fcf8;
+            border: 1px solid #d9efe0;
+            border-radius: 10px;
+            padding: 10px 12px;
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-main-color);
+        }
+
+        .subject-list li.weak {
+            border-color: rgba(255, 107, 107, 0.8);
+            background: rgba(255, 107, 107, 0.16);
+        }
+
+        .badge {
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 999px;
+            font-weight: 600;
+        }
+
+        .badge.weak {
+            background: rgba(255, 107, 107, 0.22);
+            border: 1px solid rgba(255, 107, 107, 0.55);
+        }
+
+        .badge.good {
+            background: rgba(50, 213, 131, 0.2);
+            border: 1px solid rgba(50, 213, 131, 0.5);
+        }
+
+        .sensor-analysis-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .sensor-chart-panel {
+            background: var(--surface-strong);
+            border: 1px solid #d7efdf;
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 10px 24px var(--card-shadow);
+        }
+
+        .sensor-chart-panel h4 {
+            font-size: 15px;
+            margin-bottom: 12px;
+            color: var(--text-main-color);
+            font-weight: 600;
+        }
+
+        .sensor-chart-canvas {
+            width: 100%;
+            height: 220px;
+            background: linear-gradient(to bottom, #f4fbf6, #ffffff);
+            border-radius: 10px;
+            border: 1px solid #e0e7ff;
+            display: block;
+        }
+
+        .chart-label {
+            text-align: center;
+            font-size: 11px;
+            color: var(--text-muted-color);
+            margin-top: 8px;
+            font-weight: 500;
+        }
+
+        .assignment-table-wrap {
+            overflow-x: auto;
+        }
+
+        .assignment-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 560px;
+        }
+
+        .assignment-table th,
+        .assignment-table td {
+            border-bottom: 1px solid #e2f2e7;
+            padding: 10px 8px;
+            text-align: left;
+            font-size: 13px;
+            color: var(--text-main-color);
+        }
+
+        .assignment-table th {
+            font-size: 12px;
+            color: var(--text-main-color);
+            background: #f4fbf6;
+        }
+
+        @media (max-width: 1200px) {
+            .kpi-grid {
+                grid-template-columns: repeat(3, minmax(150px, 1fr));
+            }
+        }
+
+        @media (max-width: 980px) {
+            .app {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                border-right: none;
+                border-bottom: 1px solid rgba(17, 84, 41, 0.25);
+                padding: 14px;
+                gap: 14px;
+            }
+
+            .menu {
+                display: grid;
+                grid-template-columns: repeat(3, minmax(120px, 1fr));
+            }
+
+            .menu a:hover,
+            .menu a.active {
+                transform: none;
+            }
+
+            .charts-grid,
+            .subjects {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 680px) {
+            .main {
+                padding: 12px;
+            }
+
+            .topbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .kpi-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .menu {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <aside class="sidebar">
+            <div class="brand">
+                <img src="../assets/images/logo.png" alt="Student360 logo">
+                <h1>Student360</h1>
+            </div>
+
+            <div class="student-card">
+                <p>Student</p>
+                <h2 id="studentName">Reya Student</h2>
+                <p id="collegeLabel">College: BRECW</p>
+                <p id="studentClassLabel">Class: CSE-A</p>
+            </div>
+
+            <ul class="menu">
+                <li><a class="active" href="student.html">Dashboard</a></li>
+                <li><a href="attendance.html">Attendance</a></li>
+                <li><a href="mood.html">Mood Tracker</a></li>
+                <li><a href="journal.html">AI Support</a></li>
+                <li><a href="exercises.html">Exercises</a></li>
+                <li><a href="studentdetails.html">Student Details</a></li>
+                <li><a href="#" onclick="logout(event)">Sign Out</a></li>
+            </ul>
+        </aside>
+
+        <main class="main">
+            <header class="topbar">
+                <div class="welcome">
+                    <h3 id="welcomeText">Welcome back, Reya</h3>
+                    <p>Your 360 degree learning snapshot for today</p>
+                </div>
+                <div class="top-actions">
+                    <div class="icon-btn" aria-label="Notifications">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15 17H9M18 17V11C18 7.68629 15.3137 5 12 5C8.68629 5 6 7.68629 6 11V17L4 19V20H20V19L18 17Z" stroke="#1f7a42" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="avatar" id="avatarLetter">R</div>
+                </div>
+            </header>
+
+            <section class="kpi-grid">
+                <article class="kpi-card">
+                    <p>Attendance %</p>
+                    <h4>89%</h4>
+                    <small>+2.1% this week</small>
+                </article>
+                <article class="kpi-card">
+                    <p>Engagement Score</p>
+                    <h4>8.3/10</h4>
+                    <small>Strong classroom activity</small>
+                </article>
+                <article class="kpi-card">
+                    <p>Assignments</p>
+                    <h4 id="assignmentCount">0</h4>
+                    <small id="assignmentCountText">From teachers</small>
+                </article>
+                <article class="kpi-card">
+                    <p>Weak Subjects</p>
+                    <h4>2</h4>
+                    <small>Math, Chemistry</small>
+                </article>
+                <article class="kpi-card">
+                    <p>Teacher Suggestions</p>
+                    <h4>3</h4>
+                    <small>Review chapter tests</small>
+                </article>
+            </section>
+
+            <section class="kpi-grid">
+                <article class="kpi-card">
+                    <p>🌡️ Temperature</p>
+                    <h4 id="sensorTemp">--°C</h4>
+                    <small id="tempStatus">No data</small>
+                </article>
+                <article class="kpi-card">
+                    <p>💧 Humidity</p>
+                    <h4 id="sensorHum">--%</h4>
+                    <small id="humStatus">No data</small>
+                </article>
+                <article class="kpi-card">
+                    <p>❤️ Heart Rate</p>
+                    <h4 id="sensorHR">-- bpm</h4>
+                    <small id="hrStatus">No data</small>
+                </article>
+                <article class="kpi-card">
+                    <p>🧠 Stress Level</p>
+                    <h4 id="stressLevel">--/100</h4>
+                    <small id="stressText">Waiting for live sensor data</small>
+                </article>
+                <article class="kpi-card">
+                    <p>📡 Backend Status</p>
+                    <h4 id="backendStatus">⚪ Offline</h4>
+                    <small id="backendTime">Waiting...</small>
+                </article>
+            </section>
+
+            <section class="sensor-analysis-grid">
+                <div class="sensor-chart-panel">
+                    <h4>❤️ Heart Rate Trend</h4>
+                    <canvas id="hrChart" class="sensor-chart-canvas"></canvas>
+                    <div class="chart-label">Last 60 minutes</div>
+                </div>
+
+                <div class="sensor-chart-panel">
+                    <h4>🧠 Stress Level Trend</h4>
+                    <canvas id="stressChart" class="sensor-chart-canvas"></canvas>
+                    <div class="chart-label">Last 60 minutes</div>
+                </div>
+            </section>
+
+            <section class="panel">
+                <h3>Subjects Overview</h3>
+                <div class="subjects">
+                    <ul class="subject-list">
+                        <li>Mathematics <span class="badge weak">Weak</span></li>
+                        <li>Chemistry <span class="badge weak">Weak</span></li>
+                        <li>Physics <span class="badge good">Stable</span></li>
+                    </ul>
+                    <ul class="subject-list">
+                        <li>English <span class="badge good">Strong</span></li>
+                        <li>Computer Science <span class="badge good">Strong</span></li>
+                        <li>Aptitude <span class="badge good">Stable</span></li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="panel">
+                <h3>Teacher Assignments</h3>
+                <div class="assignment-table-wrap">
+                    <table class="assignment-table">
+                        <thead>
+                            <tr>
+                                <th>Subject</th>
+                                <th>Task</th>
+                                <th>Description</th>
+                                <th>Due Date</th>
+                                <th>Status</th>
+                                <th>Attachment</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentAssignmentRows"></tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        const collegeLogoMap = {
+            "BRECW": "../assets/images/brecw.jpeg",
+            "Anurag University": "../assets/images/anurag.png",
+            "BVRIT": "../assets/images/bvrit.png",
+            "MREM": "../assets/images/mrem.jpeg",
+            "JNTUH": "../assets/images/jntuh.jpeg",
+            "CBIT": "../assets/images/cbit.jpeg",
+            "VNRVJIET": "../assets/images/vnrvjiet.png"
+        };
+
+        const collegeAliases = {
+            "brecw": "BRECW",
+            "anuraguniversity": "Anurag University",
+            "bvrit": "BVRIT",
+            "mrem": "MREM",
+            "jntuh": "JNTUH",
+            "cbit": "CBIT",
+            "vnrvjiet": "VNRVJIET"
+        };
+
+        function resolveCollegeName(value) {
+            const key = (value || "").toString().trim().toLowerCase().replace(/\s+/g, "");
+            return collegeAliases[key] || "BRECW";
+        }
+
+        const collegeThemes = {
+            "BRECW": ["#56ab2f", "#a8e063"],
+            "Anurag University": ["#faa84a", "#fcc470"],
+            "BVRIT": ["#cb2d3e", "#ef473a"],
+            "MREM": ["#A0522D", "#D2691E"],
+            "JNTUH": ["#4f46e5", "#ec4899"],
+            "CBIT": ["#11998e", "#38ef7d"],
+            "VNRVJIET": ["#b91c1c", "#ef4444"]
+        };
+
+        // Helper functions for user-namespaced localStorage
+        function getStorageKey(key) {
+            const currentUser = localStorage.getItem('student360CurrentUser');
+            return currentUser ? `${currentUser}_${key}` : key;
+        }
+
+        function getFromStorage(key) {
+            return localStorage.getItem(getStorageKey(key));
+        }
+
+        function setToStorage(key, value) {
+            localStorage.setItem(getStorageKey(key), value);
+        }
+
+        function logout(event) {
+            event.preventDefault();
+            // Clear all student360 related data from localStorage
+            localStorage.clear();
+            // Add a small delay to ensure storage is cleared before redirect
+            setTimeout(() => {
+                window.location.href = "../index.html";
+            }, 100);
+        }
+
+        function assignmentsStorageKey(college) {
+            return `student360Assignments::${college}`;
+        }
+
+        function getAssignmentsByCollege(college) {
+            const raw = localStorage.getItem(assignmentsStorageKey(college));
+            if (!raw) return [];
+
+            try {
+                const parsed = JSON.parse(raw);
+                return Array.isArray(parsed) ? parsed : [];
+            } catch {
+                return [];
+            }
+        }
+
+        function getAssignmentStatus(dueDate) {
+            const today = new Date();
+            const todayOnly = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+            const due = new Date(`${dueDate}T00:00:00`);
+
+            if (due < todayOnly) return "Overdue";
+            if (due.getTime() === todayOnly.getTime()) return "Pending";
+            return "Upcoming";
+        }
+
+        function formatAssignmentDate(dueDate) {
+            const due = new Date(`${dueDate}T00:00:00`);
+            return due.toLocaleDateString("en-IN", { year: "numeric", month: "short", day: "2-digit" });
+        }
+
+        function getValidStudentClass(value) {
+            const validClasses = ["CSE-A", "CSE-B", "CSE-C", "ECE-A", "IT-A", "IT-B"];
+            return validClasses.includes(value) ? value : "";
+        }
+
+        function deriveStudentClass(emailOrName) {
+            const classes = ["CSE-A", "CSE-B", "CSE-C", "ECE-A", "IT-A", "IT-B"];
+            const seedText = (emailOrName || "student").toString();
+            let hash = 0;
+            for (let i = 0; i < seedText.length; i++) {
+                hash = (hash * 31 + seedText.charCodeAt(i)) >>> 0;
+            }
+            return classes[hash % classes.length];
+        }
+
+        function renderAssignmentsForStudent(college, studentClass) {
+            const rows = document.getElementById("studentAssignmentRows");
+            const countNode = document.getElementById("assignmentCount");
+            const countTextNode = document.getElementById("assignmentCountText");
+
+            rows.innerHTML = "";
+
+            const assignments = getAssignmentsByCollege(college)
+                .slice()
+                .filter((item) => item.className === studentClass || !item.className)
+                .sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+
+            countNode.textContent = assignments.length;
+            countTextNode.textContent = assignments.length === 1 ? "Assignment from teachers" : "Assignments from teachers";
+
+            if (assignments.length === 0) {
+                rows.innerHTML = "<tr><td colspan=\"6\">No assignments assigned yet.</td></tr>";
+                return;
+            }
+
+            assignments.forEach((item) => {
+                const status = getAssignmentStatus(item.dueDate);
+                const safeDescription = item.description ? item.description : "-";
+                const attachmentCell = item.attachment && item.attachment.dataUrl
+                    ? `<a href="${item.attachment.dataUrl}" download="${item.attachment.name}">Download</a>`
+                    : "-";
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td>${item.subject}</td>
+                    <td>${item.task}</td>
+                    <td>${safeDescription}</td>
+                    <td>${formatAssignmentDate(item.dueDate)}</td>
+                    <td>${status}</td>
+                    <td>${attachmentCell}</td>
+                `;
+                rows.appendChild(tr);
+            });
+        }
+
+        const params = new URLSearchParams(window.location.search);
+        
+        // Check if user is logged in
+        const currentUser = localStorage.getItem("student360CurrentUser");
+        if (!currentUser) {
+            // Redirect to login page if not logged in
+            window.location.href = "../index.html";
+        }
+        
+        const selectedCollege = resolveCollegeName(params.get("college") || getFromStorage("student360College"));
+        const studentName = getFromStorage("student360Name") || "Reya Student";
+        const studentEmail = getFromStorage("student360Email") || studentName;
+        const classFromQuery = getValidStudentClass(params.get("class") || "");
+        const classFromStorage = getValidStudentClass(getFromStorage("student360Class") || "");
+        const selectedClass = classFromQuery || classFromStorage || deriveStudentClass(studentEmail);
+        setToStorage("student360Class", selectedClass);
+
+        const collegeSidebarThemes = {
+            "BRECW": ["#2f8f46", "#89d36c", "#0d4620"],
+            "Anurag University": ["#d97706", "#f59e0b", "#92400e"],
+            "BVRIT": ["#991b1b", "#dc2626", "#7f1d1d"],
+            "MREM": ["#8B4513", "#D2691E", "#4A2511"],
+            "JNTUH": ["#5b21b6", "#a855f7", "#3f0f5c"],
+            "CBIT": ["#0d9488", "#14b8a6", "#134e4a"],
+            "VNRVJIET": ["#7f1d1d", "#b91c1c", "#5f1718"]
+        };
+
+        const [bgA, bgB] = collegeThemes[selectedCollege] || collegeThemes["BRECW"];
+        const [sidebarA, sidebarB, textColor] = collegeSidebarThemes[selectedCollege] || collegeSidebarThemes["BRECW"];
+        
+        document.documentElement.style.setProperty("--bg-a", bgA);
+        document.documentElement.style.setProperty("--bg-b", bgB);
+        document.documentElement.style.setProperty("--sidebar-color-1", sidebarA);
+        document.documentElement.style.setProperty("--sidebar-color-2", sidebarB);
+        document.documentElement.style.setProperty("--text-main-color", textColor);
+        document.documentElement.style.setProperty("--text-muted-color", textColor + "cc");
+
+        // Update SVG axis label colors
+        const axisLabels = document.querySelectorAll(".axis-label");
+        axisLabels.forEach(label => {
+            label.setAttribute("fill", textColor);
+        });
+
+        // Update notification icon stroke color
+        const notificationPath = document.querySelector(".icon-btn svg path");
+        if (notificationPath) {
+            notificationPath.setAttribute("stroke", sidebarA);
+        }
+
+        const firstName = studentName.split(" ")[0];
+        const firstLetter = firstName.charAt(0).toUpperCase();
+        const collegeLogo = collegeLogoMap[selectedCollege] || "../assets/images/logo.png";
+
+        document.getElementById("collegeLabel").textContent = `College: ${selectedCollege}`;
+        document.getElementById("studentClassLabel").textContent = `Class: ${selectedClass}`;
+        document.getElementById("studentName").textContent = studentName;
+        document.getElementById("welcomeText").textContent = `Welcome back, ${firstName}`;
+        document.getElementById("avatarLetter").textContent = firstLetter;
+        document.querySelector(".brand img").src = collegeLogo;
+        renderAssignmentsForStudent(selectedCollege, selectedClass);
+
+        // Live IoT Sensor Data Fetching with Line Chart Visualization
+        const BACKEND_URL = "http://localhost:5000";
+        let sensorRefreshInterval;
+        let chartUpdateInterval;
+        const MAX_DATA_POINTS = 60;
+
+        // Sensor history for line charts (keep last 60 data points - ~1 hour at 1min intervals)
+        const sensorHistory = {
+            temperature: [],
+            humidity: [],
+            heartRate: [],
+            stress: []
+        };
+
+        function clamp(value, min, max) {
+            return Math.min(max, Math.max(min, value));
+        }
+
+        function computeStressLevel(temp, hum, heartRate) {
+            if (!temp || !hum || !heartRate) return 0;
+            const hrScore = clamp((heartRate - 60) * 1.5, 0, 100);
+            const tempScore = clamp((temp - 25) * 3.0, 0, 100);
+            const humScore = clamp((hum - 40) * 1.2, 0, 100);
+            return Math.round(clamp((0.6 * hrScore) + (0.25 * tempScore) + (0.15 * humScore), 0, 100));
+        }
+
+        function updateStressStatus(stress) {
+            const stressLevel = document.getElementById("stressLevel");
+            const stressText = document.getElementById("stressText");
+
+            if (!stressLevel || !stressText) return;
+
+            stressLevel.textContent = `${stress}/100`;
+            if (stress >= 70) {
+                stressText.textContent = "High stress detected - attention recommended";
+            } else if (stress >= 40) {
+                stressText.textContent = "Moderate stress - keep monitoring";
+            } else {
+                stressText.textContent = "Low stress - stable state";
+            }
+        }
+
+        function drawLineChart(canvasId, data, minValue, maxValue, lineColor) {
+            const canvas = document.getElementById(canvasId);
+            if (!canvas || data.length === 0) return;
+            
+            const ctx = canvas.getContext("2d");
+            const rect = canvas.getBoundingClientRect();
+            canvas.width = rect.width;
+            canvas.height = rect.height;
+            
+            const padding = 40;
+            const width = canvas.width - 2 * padding;
+            const height = canvas.height - 2 * padding;
+            
+            // Clear canvas
+            ctx.fillStyle = "transparent";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw grid lines
+            ctx.strokeStyle = "#e5e7eb";
+            ctx.lineWidth = 0.5;
+            for (let i = 0; i <= 4; i++) {
+                const y = padding + (height / 4) * i;
+                ctx.beginPath();
+                ctx.moveTo(padding, y);
+                ctx.lineTo(canvas.width - padding, y);
+                ctx.stroke();
+            }
+            
+            // Draw axes
+            ctx.strokeStyle = "#9ca3af";
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(padding, padding);
+            ctx.lineTo(padding, canvas.height - padding);
+            ctx.lineTo(canvas.width - padding, canvas.height - padding);
+            ctx.stroke();
+            
+            // Draw data line
+            ctx.strokeStyle = lineColor;
+            ctx.lineWidth = 2.5;
+            ctx.lineCap = "round";
+            ctx.lineJoin = "round";
+            
+            const range = maxValue - minValue || 1;
+            const pointSpacing = width / Math.max(data.length - 1, 1);
+            
+            ctx.beginPath();
+            data.forEach((value, index) => {
+                const x = padding + index * pointSpacing;
+                const y = canvas.height - padding - ((value - minValue) / range) * height;
+                
+                if (index === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            });
+            ctx.stroke();
+            
+            // Draw data points
+            ctx.fillStyle = lineColor;
+            data.forEach((value, index) => {
+                const x = padding + index * pointSpacing;
+                const y = canvas.height - padding - ((value - minValue) / range) * height;
+                ctx.beginPath();
+                ctx.arc(x, y, 3, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            
+            // Draw Y-axis labels
+            ctx.fillStyle = "#6b7280";
+            ctx.font = "11px Poppins";
+            ctx.textAlign = "right";
+            for (let i = 0; i <= 4; i++) {
+                const value = maxValue - (range / 4) * i;
+                const y = padding + (height / 4) * i;
+                ctx.fillText(value.toFixed(0), padding - 8, y + 4);
+            }
+        }
+
+        function addSensorDataPoint(data) {
+            if (data.temperature !== null && data.temperature !== undefined) {
+                sensorHistory.temperature.push(Number(data.temperature));
+                if (sensorHistory.temperature.length > MAX_DATA_POINTS) sensorHistory.temperature.shift();
+            }
+            if (data.humidity !== null && data.humidity !== undefined) {
+                sensorHistory.humidity.push(Number(data.humidity));
+                if (sensorHistory.humidity.length > MAX_DATA_POINTS) sensorHistory.humidity.shift();
+            }
+            if (data.heartRate !== null && data.heartRate !== undefined) {
+                sensorHistory.heartRate.push(Number(data.heartRate));
+                if (sensorHistory.heartRate.length > MAX_DATA_POINTS) sensorHistory.heartRate.shift();
+            }
+            if (data.stress !== null && data.stress !== undefined) {
+                sensorHistory.stress.push(Number(data.stress));
+                if (sensorHistory.stress.length > MAX_DATA_POINTS) sensorHistory.stress.shift();
+            }
+        }
+
+        function updateSensorCharts() {
+            drawLineChart("hrChart", sensorHistory.heartRate, 50, 120, "#ec4899");
+            drawLineChart("stressChart", sensorHistory.stress, 0, 100, "#a855f7");
+        }
+
+        async function fetchLatestSensorData() {
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/latest`, { 
+                    method: "GET",
+                    headers: { "Content-Type": "application/json" }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+                
+                const data = await response.json();
+                console.log("[Sensor Data] Received:", data);
+
+                // Add to history for charts and render
+                addSensorDataPoint(data);
+                updateSensorCharts();
+
+                // Update frontend with sensor data
+                if (data.temperature !== null && data.temperature !== undefined) {
+                    const temp = Number(data.temperature);
+                    document.getElementById("sensorTemp").textContent = temp + "°C";
+                    document.getElementById("tempStatus").textContent = temp > 38 ? "⚠️ High" : "✅ Normal";
+                }
+                if (data.humidity !== null && data.humidity !== undefined) {
+                    const hum = Number(data.humidity);
+                    document.getElementById("sensorHum").textContent = hum + "%";
+                    document.getElementById("humStatus").textContent = hum > 70 ? "⚠️ High" : "✅ Normal";
+                }
+                if (data.heartRate !== null && data.heartRate !== undefined) {
+                    const hr = Number(data.heartRate);
+                    document.getElementById("sensorHR").textContent = hr + " bpm";
+                    document.getElementById("hrStatus").textContent = hr > 100 ? "⚠️ Elevated" : "✅ Normal";
+                }
+
+                const stress = data.stress !== null && data.stress !== undefined
+                    ? Number(data.stress)
+                    : computeStressLevel(Number(data.temperature), Number(data.humidity), Number(data.heartRate));
+
+                if (!Number.isNaN(stress)) {
+                    updateStressStatus(Math.round(stress));
+                }
+
+                // Update backend status
+                document.getElementById("backendStatus").textContent = "🟢 Online";
+                if (data.receivedAt) {
+                    const recvTime = new Date(data.receivedAt).toLocaleTimeString();
+                    document.getElementById("backendTime").textContent = `Last: ${recvTime}`;
+                } else {
+                    document.getElementById("backendTime").textContent = "Online (waiting for data)";
+                }
+            } catch (error) {
+                console.error("[Sensor Fetch Error]", error);
+                document.getElementById("backendStatus").textContent = "🔴 Offline";
+                document.getElementById("backendTime").textContent = "Connection failed";
+            }
+        }
+
+        // Start fetching sensor data immediately and every 2 seconds (for live card values)
+        fetchLatestSensorData();
+        sensorRefreshInterval = setInterval(fetchLatestSensorData, 2000);
+
+        // Update charts every 1 minute (60000 ms)
+        updateSensorCharts();
+        chartUpdateInterval = setInterval(updateSensorCharts, 60000);
+
+        // Cleanup on page unload
+        window.addEventListener("beforeunload", () => {
+            if (sensorRefreshInterval) clearInterval(sensorRefreshInterval);
+            if (chartUpdateInterval) clearInterval(chartUpdateInterval);
+        });
+    </script>
+</body>
+</html>

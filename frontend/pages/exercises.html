@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student360 | Exercises</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-a: #56ab2f;
+            --bg-b: #a8e063;
+            --sidebar-color-1: #2f8f46;
+            --sidebar-color-2: #89d36c;
+            --text-main-color: #124b2e;
+            --text-muted-color: #4b7a63;
+            --surface: #ffffff;
+            --surface-strong: #ffffff;
+            --text-main: #124b2e;
+            --text-muted: #4b7a63;
+            --danger: #ff6b6b;
+            --success: #32d583;
+            --warning: #fbbf24;
+            --card-shadow: rgba(32, 86, 56, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Poppins", sans-serif;
+            min-height: 100vh;
+            color: var(--text-main-color);
+            background: #ffffff;
+        }
+
+        .app {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+        }
+
+        .sidebar {
+            background: linear-gradient(160deg, var(--sidebar-color-1), var(--sidebar-color-2));
+            border-right: 1px solid rgba(17, 84, 41, 0.25);
+            padding: 24px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+            color: #f8fff9;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 10px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .brand img {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(255, 255, 255, 0.7);
+        }
+
+        .brand h1 {
+            font-size: 18px;
+            line-height: 1.2;
+        }
+
+        .student-card {
+            background: rgba(255, 255, 255, 0.18);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            border-radius: 14px;
+            padding: 14px;
+        }
+
+        .student-card p {
+            font-size: 12px;
+            color: rgba(245, 255, 247, 0.9);
+        }
+
+        .student-card h2 {
+            margin-top: 4px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .menu {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: #f8fff9;
+            display: block;
+            padding: 12px 14px;
+            border-radius: 12px;
+            border: 1px solid transparent;
+            background: rgba(255, 255, 255, 0.14);
+            transition: 0.25s ease;
+        }
+
+        .menu a:hover,
+        .menu a.active {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.55);
+            transform: translateX(4px);
+        }
+
+        .main {
+            background: #ffffff;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            background: var(--surface);
+            border: 1px solid #cdebd8;
+            border-radius: 16px;
+            padding: 14px 16px;
+            box-shadow: 0 10px 24px var(--card-shadow);
+        }
+
+        .welcome h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-main-color);
+        }
+
+        .welcome p {
+            font-size: 13px;
+            color: var(--text-muted-color);
+        }
+
+        .avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--sidebar-color-1), var(--sidebar-color-2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .filters {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 14px;
+            border: 1px solid #cdebd8;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-main-color);
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            background: #f0f7f3;
+            border-color: var(--sidebar-color-1);
+        }
+
+        .filter-btn.active {
+            background: var(--sidebar-color-1);
+            color: white;
+            border-color: var(--sidebar-color-1);
+        }
+
+        .assignments-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 16px;
+        }
+
+        .assignment-card {
+            background: white;
+            border: 1px solid #cdebd8;
+            border-left: 4px solid var(--sidebar-color-1);
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 2px 8px var(--card-shadow);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .assignment-card:hover {
+            box-shadow: 0 6px 16px var(--card-shadow);
+            transform: translateY(-2px);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .subject-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            background: linear-gradient(135deg, var(--sidebar-color-1), var(--sidebar-color-2));
+            color: white;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-badge {
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            display: inline-block;
+        }
+
+        .status-badge.pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-badge.completed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .task-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-main-color);
+            margin: 6px 0;
+            line-height: 1.4;
+        }
+
+        .task-description {
+            font-size: 13px;
+            color: var(--text-muted-color);
+            line-height: 1.5;
+        }
+
+        .due-date {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: var(--text-muted-color);
+            font-weight: 500;
+            padding: 8px 0;
+            border-top: 1px solid #e8f4ed;
+            border-bottom: 1px solid #e8f4ed;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            grid-column: 1 / -1;
+        }
+
+        .empty-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .empty-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-main-color);
+            margin-bottom: 8px;
+        }
+
+        .empty-text {
+            font-size: 14px;
+            color: var(--text-muted-color);
+        }
+
+        .read-only-notice {
+            background: #e3f2fd;
+            border: 1px solid #90caf9;
+            color: #1565c0;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 500;
+            margin-bottom: 16px;
+        }
+
+        @media (max-width: 1200px) {
+            .assignments-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+
+        @media (max-width: 820px) {
+            .app {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            .main {
+                padding: 14px;
+            }
+
+            .topbar {
+                padding: 10px 12px;
+            }
+
+            .welcome h3 {
+                font-size: 18px;
+            }
+
+            .assignments-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="brand">
+                <img src="../assets/images/logo.png" alt="S360">
+                <h1>Student360</h1>
+            </div>
+
+            <div class="student-card">
+                <p>Student</p>
+                <h2 id="studentName">Reya Student</h2>
+                <p id="collegeLabel">College: BRECW</p>
+            </div>
+
+            <ul class="menu">
+                <li><a href="student.html">Dashboard</a></li>
+                <li><a href="attendance.html">Attendance</a></li>
+                <li><a href="mood.html">Mood Tracker</a></li>
+                <li><a href="journal.html">Journaling</a></li>
+                <li><a href="exercises.html" class="active">Exercises</a></li>
+                <li><a href="studentdetails.html">Student Details</a></li>
+                <li><a href="#" onclick="logout(event)">Sign Out</a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main">
+            <!-- Top Bar -->
+            <div class="topbar">
+                <div class="welcome">
+                    <h3 id="welcomeText">Welcome back, Reya</h3>
+                    <p>Track your assignments here</p>
+                </div>
+                <div class="avatar" id="avatarLetter">R</div>
+            </div>
+
+            <!-- Read-Only Notice -->
+            <div class="read-only-notice">
+                ℹ️ Your assignments are managed by instructors. Marks and status updates are made by teachers only.
+            </div>
+
+            <!-- Filters -->
+            <div class="filters">
+                <button class="filter-btn active" onclick="filterAssignments('all')">All</button>
+                <button class="filter-btn" onclick="filterAssignments('pending')">Pending</button>
+                <button class="filter-btn" onclick="filterAssignments('completed')">Completed</button>
+                <button class="filter-btn" onclick="filterAssignments('math')">Math</button>
+                <button class="filter-btn" onclick="filterAssignments('physics')">Physics</button>
+                <button class="filter-btn" onclick="filterAssignments('chemistry')">Chemistry</button>
+                <button class="filter-btn" onclick="filterAssignments('english')">English</button>
+            </div>
+
+            <!-- Assignments Grid -->
+            <div class="assignments-grid" id="assignmentsGrid">
+                <!-- Cards will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Helper functions for user-namespaced localStorage
+        function getStorageKey(key) {
+            const currentUser = localStorage.getItem('student360CurrentUser');
+            return currentUser ? `${currentUser}_${key}` : key;
+        }
+
+        function logout(event) {
+            event.preventDefault();
+            localStorage.clear();
+            window.location.href = "../index.html";
+        }
+
+        function getFromStorage(key) {
+            return localStorage.getItem(getStorageKey(key));
+        }
+
+        const params = new URLSearchParams(window.location.search);
+        const selectedCollege = params.get("college") || getFromStorage("student360College") || "BRECW";
+        const studentName = getFromStorage("student360Name") || "Reya Student";
+
+        const collegeLogoMap = {
+            "BRECW": "../assets/images/brecw.jpeg",
+            "Anurag University": "../assets/images/anurag.png",
+            "BVRIT": "../assets/images/bvrit.png",
+            "MREM": "../assets/images/mrem.jpeg",
+            "JNTUH": "../assets/images/jntuh.jpeg",
+            "CBIT": "../assets/images/cbit.jpeg",
+            "VNRVJIET": "../assets/images/vnrvjiet.png"
+        };
+
+        const collegeThemes = {
+            'BRECW': ['#56ab2f', '#a8e063'],
+            'Anurag University': ['#d97706', '#f59e0b'],
+            'BVRIT': ['#991b1b', '#dc2626'],
+            'MREM': ['#A0522D', '#D2691E'],
+            'JNTUH': ['#4f46e5', '#ec4899'],
+            'CBIT': ['#11998e', '#38ef7d'],
+            'VNRVJIET': ['#b91c1c', '#ef4444']
+        };
+
+        const collegeSidebarThemes = {
+            'BRECW': ['#2f8f46', '#89d36c', '#0d4620'],
+            'Anurag University': ['#d97706', '#f59e0b', '#92400e'],
+            'BVRIT': ['#991b1b', '#dc2626', '#7f1d1d'],
+            'MREM': ['#8B4513', '#D2691E', '#4A2511'],
+            'JNTUH': ['#5b21b6', '#a855f7', '#3f0f5c'],
+            'CBIT': ['#0d9488', '#14b8a6', '#134e4a'],
+            'VNRVJIET': ['#7f1d1d', '#b91c1c', '#5f1718']
+        };
+
+        const [bgA, bgB] = collegeThemes[selectedCollege] || collegeThemes['BRECW'];
+        const [sidebarA, sidebarB, textColor] = collegeSidebarThemes[selectedCollege] || collegeSidebarThemes['BRECW'];
+
+        document.documentElement.style.setProperty('--bg-a', bgA);
+        document.documentElement.style.setProperty('--bg-b', bgB);
+        document.documentElement.style.setProperty('--sidebar-color-1', sidebarA);
+        document.documentElement.style.setProperty('--sidebar-color-2', sidebarB);
+        document.documentElement.style.setProperty('--text-main-color', textColor);
+        document.documentElement.style.setProperty('--text-muted-color', textColor + 'cc');
+
+        const firstName = studentName.split(' ')[0];
+        const firstLetter = firstName.charAt(0).toUpperCase();
+        const collegeLogo = collegeLogoMap[selectedCollege] || '../assets/images/logo.png';
+
+        document.getElementById('collegeLabel').textContent = `College: ${selectedCollege}`;
+        document.getElementById('studentName').textContent = studentName;
+        document.getElementById('welcomeText').textContent = `Welcome back, ${firstName}`;
+        document.getElementById('avatarLetter').textContent = firstLetter;
+        document.querySelector('.brand img').src = collegeLogo;
+
+        // Sample assignments data
+        const assignmentsData = [
+            {
+                id: 1,
+                subject: 'Math',
+                subjectCode: 'math',
+                title: 'Assignment 1 - Calculus',
+                description: 'Solve differential equations from Chapter 5',
+                dueDate: '2026-03-22',
+                status: 'pending',
+                completed: false
+            },
+            {
+                id: 2,
+                subject: 'Physics',
+                subjectCode: 'physics',
+                title: 'Practice Problems on Thermodynamics',
+                description: 'Complete 15 problems from the exercise set',
+                dueDate: '2026-03-20',
+                status: 'pending',
+                completed: false
+            },
+            {
+                id: 3,
+                subject: 'Chemistry',
+                subjectCode: 'chemistry',
+                title: 'Lab Report - Organic Synthesis',
+                description: 'Document and analyze your lab results',
+                dueDate: '2026-03-25',
+                status: 'completed',
+                completed: true
+            },
+            {
+                id: 4,
+                subject: 'English',
+                subjectCode: 'english',
+                title: 'Essay on Modern Literature',
+                description: 'Write 1500-word essay on contemporary authors',
+                dueDate: '2026-03-28',
+                status: 'pending',
+                completed: false
+            },
+            {
+                id: 5,
+                subject: 'Math',
+                subjectCode: 'math',
+                title: 'Assignment 2 - Linear Algebra',
+                description: 'Matrix operations and eigenvalues',
+                dueDate: '2026-03-19',
+                status: 'completed',
+                completed: true
+            },
+            {
+                id: 6,
+                subject: 'Physics',
+                subjectCode: 'physics',
+                title: 'Quantum Mechanics Problem Set',
+                description: 'Problems from sections 3-4 of lecture notes',
+                dueDate: '2026-03-23',
+                status: 'pending',
+                completed: false
+            },
+            {
+                id: 7,
+                subject: 'Chemistry',
+                subjectCode: 'chemistry',
+                title: 'Assignment - Equilibrium Reactions',
+                description: 'Calculate equilibrium constants for given reactions',
+                dueDate: '2026-03-21',
+                status: 'pending',
+                completed: false
+            },
+            {
+                id: 8,
+                subject: 'English',
+                subjectCode: 'english',
+                title: 'Reading Comprehension Test',
+                description: 'Complete practice test with 20 passages',
+                dueDate: '2026-03-17',
+                status: 'completed',
+                completed: true
+            }
+        ];
+
+        function displayAssignments(filter = 'all') {
+            const grid = document.getElementById('assignmentsGrid');
+            
+            let filtered = assignmentsData;
+
+            if (filter !== 'all') {
+                if (filter === 'pending') {
+                    filtered = assignmentsData.filter(a => !a.completed);
+                } else if (filter === 'completed') {
+                    filtered = assignmentsData.filter(a => a.completed);
+                } else {
+                    filtered = assignmentsData.filter(a => a.subjectCode === filter);
+                }
+            }
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">📭</div>
+                        <div class="empty-title">No Assignments</div>
+                        <div class="empty-text">Great! You've completed all your assignments for this filter</div>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(assignment => `
+                <div class="assignment-card">
+                    <div class="card-header">
+                        <div>
+                            <div class="subject-badge">${assignment.subject}</div>
+                            <div class="task-title">${assignment.title}</div>
+                        </div>
+                        <span class="status-badge ${assignment.status}">${assignment.status.toUpperCase()}</span>
+                    </div>
+                    
+                    <div class="task-description">${assignment.description}</div>
+                    
+                    <div class="due-date">
+                        <span>📅 Due: ${formatDate(assignment.dueDate)}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterAssignments(filter) {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            displayAssignments(filter);
+        }
+
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'short', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString('en-US', options);
+        }
+
+        displayAssignments('all');
+    </script>
+</body>
+</html>

@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student360 | Student Details</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-a: #56ab2f;
+            --bg-b: #a8e063;
+            --sidebar-color-1: #2f8f46;
+            --sidebar-color-2: #89d36c;
+            --text-main-color: #124b2e;
+            --text-muted-color: #4b7a63;
+            --surface: #ffffff;
+            --surface-soft: #f6fcf8;
+            --border: #d7efdf;
+            --card-shadow: rgba(32, 86, 56, 0.12);
+            --risk-low: #16a34a;
+            --risk-medium: #f59e0b;
+            --risk-high: #dc2626;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Poppins", sans-serif;
+            min-height: 100vh;
+            color: var(--text-main-color);
+            background: #ffffff;
+        }
+
+        .app {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+        }
+
+        .sidebar {
+            background: linear-gradient(160deg, var(--sidebar-color-1), var(--sidebar-color-2));
+            border-right: 1px solid rgba(17, 84, 41, 0.25);
+            padding: 24px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+            color: #f8fff9;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 10px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .brand img {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(255, 255, 255, 0.7);
+        }
+
+        .brand h1 {
+            font-size: 18px;
+            line-height: 1.2;
+        }
+
+        .student-card {
+            background: rgba(255, 255, 255, 0.18);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            border-radius: 14px;
+            padding: 14px;
+        }
+
+        .student-card p {
+            font-size: 12px;
+            color: rgba(245, 255, 247, 0.9);
+        }
+
+        .student-card h2 {
+            margin-top: 4px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .menu {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: #f8fff9;
+            display: block;
+            padding: 12px 14px;
+            border-radius: 12px;
+            border: 1px solid transparent;
+            background: rgba(255, 255, 255, 0.14);
+            transition: 0.25s ease;
+        }
+
+        .menu a:hover,
+        .menu a.active {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.55);
+            transform: translateX(4px);
+        }
+
+        .main {
+            background: #ffffff;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            background: var(--surface);
+            border: 1px solid #cdebd8;
+            border-radius: 16px;
+            padding: 14px 16px;
+            box-shadow: 0 10px 24px var(--card-shadow);
+        }
+
+        .welcome h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-main-color);
+        }
+
+        .welcome p {
+            font-size: 13px;
+            color: var(--text-muted-color);
+            margin-top: 2px;
+        }
+
+        .avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 2px solid var(--sidebar-color-1);
+            background: linear-gradient(135deg, rgba(47, 143, 70, 0.15), rgba(137, 211, 108, 0.15));
+            color: var(--text-main-color);
+            font-weight: 700;
+            display: grid;
+            place-items: center;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(160px, 1fr));
+            gap: 12px;
+        }
+
+        .summary-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 14px;
+            box-shadow: 0 10px 24px var(--card-shadow);
+        }
+
+        .summary-card p {
+            font-size: 12px;
+            color: var(--text-muted-color);
+        }
+
+        .summary-card h4 {
+            margin-top: 8px;
+            font-size: 24px;
+            color: var(--text-main-color);
+            line-height: 1.2;
+        }
+
+        .summary-card small {
+            font-size: 12px;
+            color: var(--text-muted-color);
+        }
+
+        .details-panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 10px 24px var(--card-shadow);
+        }
+
+        .details-head {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 14px;
+        }
+
+        .details-head h4 {
+            font-size: 18px;
+            color: var(--text-main-color);
+        }
+
+        .risk-badge {
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: 999px;
+            padding: 6px 10px;
+            border: 1px solid transparent;
+        }
+
+        .risk-low {
+            color: #14532d;
+            background: #dcfce7;
+            border-color: #86efac;
+        }
+
+        .risk-medium {
+            color: #92400e;
+            background: #fef3c7;
+            border-color: #fcd34d;
+        }
+
+        .risk-high {
+            color: #7f1d1d;
+            background: #fee2e2;
+            border-color: #fca5a5;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(170px, 1fr));
+            gap: 12px;
+        }
+
+        .field {
+            background: var(--surface-soft);
+            border: 1px solid #e2f2e7;
+            border-radius: 12px;
+            padding: 11px;
+        }
+
+        .field p {
+            font-size: 12px;
+            color: var(--text-muted-color);
+        }
+
+        .field h5 {
+            margin-top: 5px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-main-color);
+            word-break: break-word;
+        }
+
+        @media (max-width: 1180px) {
+            .summary-grid {
+                grid-template-columns: repeat(2, minmax(170px, 1fr));
+            }
+
+            .details-grid {
+                grid-template-columns: repeat(2, minmax(170px, 1fr));
+            }
+        }
+
+        @media (max-width: 980px) {
+            .app {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                border-right: none;
+                border-bottom: 1px solid rgba(17, 84, 41, 0.25);
+                padding: 14px;
+                gap: 14px;
+            }
+
+            .menu {
+                display: grid;
+                grid-template-columns: repeat(3, minmax(120px, 1fr));
+            }
+
+            .menu a:hover,
+            .menu a.active {
+                transform: none;
+            }
+        }
+
+        @media (max-width: 680px) {
+            .main {
+                padding: 12px;
+            }
+
+            .topbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .menu {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <aside class="sidebar">
+            <div class="brand">
+                <img id="collegeLogo" src="../assets/images/logo.png" alt="Student360 logo">
+                <h1>Student360</h1>
+            </div>
+
+            <div class="student-card">
+                <p>Student</p>
+                <h2 id="studentName">Reya Student</h2>
+                <p id="collegeLabel">College: BRECW</p>
+                <p id="studentClassLabel">Class: CSE-A</p>
+            </div>
+
+            <ul class="menu">
+                <li><a href="student.html">Dashboard</a></li>
+                <li><a href="attendance.html">Attendance</a></li>
+                <li><a href="mood.html">Mood Tracker</a></li>
+                <li><a href="journal.html">Journaling</a></li>
+                <li><a href="exercises.html">Exercises</a></li>
+                <li><a class="active" href="studentdetails.html">Student Details</a></li>
+                <li><a href="#" onclick="logout(event)">Sign Out</a></li>
+            </ul>
+        </aside>
+
+        <main class="main">
+            <header class="topbar">
+                <div class="welcome">
+                    <h3 id="welcomeText">Student Details</h3>
+                    <p>Your personal and academic profile in one place</p>
+                </div>
+                <div class="avatar" id="avatarLetter">R</div>
+            </header>
+
+            <section class="summary-grid">
+                <article class="summary-card">
+                    <p>Attendance</p>
+                    <h4 id="attendanceValue">90.5%</h4>
+                    <small>Current overall attendance</small>
+                </article>
+                <article class="summary-card">
+                    <p>Average Marks</p>
+                    <h4 id="marksValue">76%</h4>
+                    <small>Latest academic average</small>
+                </article>
+                <article class="summary-card">
+                    <p>Engagement Score</p>
+                    <h4 id="engagementValue">8.2 / 10</h4>
+                    <small>Class and activity participation</small>
+                </article>
+                <article class="summary-card">
+                    <p>Wellness Score</p>
+                    <h4 id="wellnessValue">7.6 / 10</h4>
+                    <small>Based on mood and journal inputs</small>
+                </article>
+            </section>
+
+            <section class="details-panel">
+                <div class="details-head">
+                    <h4>Complete Profile</h4>
+                    <span id="riskBadge" class="risk-badge risk-low">Risk: LOW</span>
+                </div>
+                <div class="details-grid" id="detailsGrid"></div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        const collegeLogoMap = {
+            "BRECW": "../assets/images/brecw.jpeg",
+            "Anurag University": "../assets/images/anurag.png",
+            "BVRIT": "../assets/images/bvrit.png",
+            "MREM": "../assets/images/mrem.jpeg",
+            "JNTUH": "../assets/images/jntuh.jpeg",
+            "CBIT": "../assets/images/cbit.jpeg",
+            "VNRVJIET": "../assets/images/vnrvjiet.png"
+        };
+
+        const collegeAliases = {
+            brecw: "BRECW",
+            anuraguniversity: "Anurag University",
+            bvrit: "BVRIT",
+            mrem: "MREM",
+            jntuh: "JNTUH",
+            cbit: "CBIT",
+            vnrvjiet: "VNRVJIET"
+        };
+
+        const collegeThemes = {
+            "BRECW": ["#2f8f46", "#89d36c", "#0d4620"],
+            "Anurag University": ["#d97706", "#f59e0b", "#92400e"],
+            "BVRIT": ["#991b1b", "#dc2626", "#7f1d1d"],
+            "MREM": ["#8B4513", "#D2691E", "#4A2511"],
+            "JNTUH": ["#5b21b6", "#a855f7", "#3f0f5c"],
+            "CBIT": ["#0d9488", "#14b8a6", "#134e4a"],
+            "VNRVJIET": ["#7f1d1d", "#b91c1c", "#5f1718"]
+        };
+
+        function getStorageKey(key) {
+            const currentUser = localStorage.getItem("student360CurrentUser");
+            return currentUser ? `${currentUser}_${key}` : key;
+        }
+
+        function logout(event) {
+            event.preventDefault();
+            localStorage.clear();
+                window.location.href = "../index.html";
+        }
+
+        function getFromStorage(key) {
+            return localStorage.getItem(getStorageKey(key));
+        }
+
+        function resolveCollegeName(value) {
+            const key = (value || "").toString().trim().toLowerCase().replace(/\s+/g, "");
+            return collegeAliases[key] || "BRECW";
+        }
+
+        function getValidStudentClass(value) {
+            const valid = ["CSE-A", "CSE-B", "CSE-C", "ECE-A", "IT-A", "IT-B"];
+            return valid.includes(value) ? value : "";
+        }
+
+        function deriveStudentClass(seedText) {
+            const classes = ["CSE-A", "CSE-B", "CSE-C", "ECE-A", "IT-A", "IT-B"];
+            const text = (seedText || "student").toString();
+            let hash = 0;
+            for (let i = 0; i < text.length; i++) {
+                hash = (hash * 31 + text.charCodeAt(i)) >>> 0;
+            }
+            return classes[hash % classes.length];
+        }
+
+        function hashText(text) {
+            let hash = 0;
+            for (let i = 0; i < text.length; i++) {
+                hash = (hash * 31 + text.charCodeAt(i)) >>> 0;
+            }
+            return hash;
+        }
+
+        function getRiskLevel(marks, attendance) {
+            if (attendance < 65 || marks < 50) return "high";
+            if (attendance < 75 || marks < 65) return "medium";
+            return "low";
+        }
+
+        function createField(label, value) {
+            return `<div class="field"><p>${label}</p><h5>${value}</h5></div>`;
+        }
+
+        const params = new URLSearchParams(window.location.search);
+        const collegeName = resolveCollegeName(params.get("college") || getFromStorage("student360College"));
+        const studentName = getFromStorage("student360Name") || "Reya Student";
+        const studentEmail = getFromStorage("student360Email") || `${studentName.replace(/\s+/g, "").toLowerCase()}@student360.edu`;
+        const classFromQuery = getValidStudentClass(params.get("class") || "");
+        const classFromStorage = getValidStudentClass(getFromStorage("student360Class") || "");
+        const studentClass = classFromQuery || classFromStorage || deriveStudentClass(studentEmail);
+
+        const seed = hashText(`${studentEmail}-${studentClass}`);
+        const attendance = 58 + (seed % 43);
+        const marks = 40 + ((seed >> 4) % 57);
+        const engagement = (62 + ((seed >> 3) % 38)) / 10;
+        const wellness = (54 + ((seed >> 6) % 41)) / 10;
+        const semester = 1 + ((seed >> 5) % 8);
+        const bloodGroups = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
+        const bloodGroup = bloodGroups[(seed >> 7) % bloodGroups.length];
+        const grade = marks >= 90 ? "A+" : marks >= 80 ? "A" : marks >= 70 ? "B" : marks >= 60 ? "C" : "D";
+        const risk = getRiskLevel(marks, attendance);
+
+        const firstLetter = studentName.trim().charAt(0).toUpperCase() || "S";
+        document.getElementById("avatarLetter").textContent = firstLetter;
+        document.getElementById("studentName").textContent = studentName;
+        document.getElementById("collegeLabel").textContent = `College: ${collegeName}`;
+        document.getElementById("studentClassLabel").textContent = `Class: ${studentClass}`;
+        document.getElementById("welcomeText").textContent = `Welcome, ${studentName}`;
+
+        document.getElementById("attendanceValue").textContent = `90.5%`;
+        document.getElementById("marksValue").textContent = `${marks}%`;
+        document.getElementById("engagementValue").textContent = `${engagement.toFixed(1)} / 10`;
+        document.getElementById("wellnessValue").textContent = `${wellness.toFixed(1)} / 10`;
+
+        const details = [
+            ["Full Name", studentName],
+            ["Email", studentEmail],
+            ["Class", studentClass],
+            ["Roll Number", `${studentClass.replace("-", "")}${String((seed % 72) + 1).padStart(3, "0")}`],
+            ["Department", studentClass.startsWith("CSE") ? "Computer Science and Engineering" : studentClass.startsWith("ECE") ? "Electronics and Communication Engineering" : "Information Technology"],
+            ["Semester", String(semester)],
+            ["Attendance", `90.5%`],
+            ["Average Marks", `${marks}%`],
+            ["Grade", grade],
+            ["Blood Group", bloodGroup],
+            ["Parent Contact", `9${String(100000000 + ((seed * 7) % 900000000)).padStart(9, "0")}`],
+            ["Fee Status", marks >= 75 ? "Paid" : marks >= 60 ? "Partially Paid" : "Pending"]
+        ];
+
+        document.getElementById("detailsGrid").innerHTML = details.map(([label, value]) => createField(label, value)).join("");
+
+        const riskBadge = document.getElementById("riskBadge");
+        riskBadge.className = `risk-badge risk-${risk}`;
+        riskBadge.textContent = `Risk: ${risk.toUpperCase()}`;
+
+        const [sidebarA, sidebarB, textColor] = collegeThemes[collegeName] || collegeThemes["BRECW"];
+        document.documentElement.style.setProperty("--sidebar-color-1", sidebarA);
+        document.documentElement.style.setProperty("--sidebar-color-2", sidebarB);
+        document.documentElement.style.setProperty("--text-main-color", textColor);
+
+        const logo = document.getElementById("collegeLogo");
+            logo.src = collegeLogoMap[collegeName] || "../assets/images/logo.png";
+        logo.alt = `${collegeName} logo`;
+    </script>
+</body>
+</html>

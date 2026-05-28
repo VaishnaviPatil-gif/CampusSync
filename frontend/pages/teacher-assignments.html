@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student360 | Teacher Assignments</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sidebar-color-1: #2f8f46;
+            --sidebar-color-2: #89d36c;
+            --text-main-color: #124b2e;
+            --text-muted-color: #4b7a63;
+            --line: #d7efdf;
+            --chip-border: #96d6ae;
+            --chip-bg: #effaf2;
+            --chip-text: #14532d;
+            --panel: #ffffff;
+            --shadow: rgba(15, 23, 42, 0.14);
+            --risk: #dc2626;
+            --warn: #f59e0b;
+            --good: #16a34a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Poppins", sans-serif;
+            min-height: 100vh;
+            background: #ffffff;
+            color: var(--text-main-color);
+            overflow-x: hidden;
+        }
+
+        .layout {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+        }
+
+        .sidebar {
+            background: linear-gradient(160deg, var(--sidebar-color-1), var(--sidebar-color-2));
+            border-right: 1px solid rgba(17, 84, 41, 0.25);
+            padding: 24px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+            color: #f8fff9;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 10px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .brand img {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(255, 255, 255, 0.7);
+            background: #fff;
+        }
+
+        .brand h1 {
+            font-size: 18px;
+            line-height: 1.2;
+        }
+
+        .teacher-card {
+            background: rgba(255, 255, 255, 0.18);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            border-radius: 14px;
+            padding: 14px;
+        }
+
+        .teacher-card p {
+            font-size: 12px;
+            color: rgba(245, 255, 247, 0.9);
+        }
+
+        .teacher-card h2 {
+            margin-top: 4px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .menu {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: #f8fff9;
+            display: block;
+            padding: 12px 14px;
+            border-radius: 12px;
+            border: 1px solid transparent;
+            background: rgba(255, 255, 255, 0.14);
+            transition: 0.25s ease;
+        }
+
+        .menu a:hover,
+        .menu a.active {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.55);
+            transform: translateX(4px);
+        }
+
+        .main {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .topbar,
+        .form-panel,
+        .table-panel {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            box-shadow: 0 10px 24px var(--shadow);
+        }
+
+        .topbar {
+            padding: 14px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .topbar h3 {
+            font-size: 20px;
+        }
+
+        .topbar p {
+            font-size: 13px;
+            color: var(--text-muted-color);
+        }
+
+        .pill {
+            border: 1px solid var(--chip-border);
+            background: var(--chip-bg);
+            color: var(--chip-text);
+            border-radius: 999px;
+            padding: 6px 10px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .form-panel {
+            padding: 14px;
+        }
+
+        .assignment-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+            gap: 10px;
+            align-items: stretch;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            padding: 10px;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            background: #ffffff;
+            min-height: 120px;
+            justify-content: flex-start;
+        }
+
+        .field label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-main-color);
+        }
+
+        .field select,
+        .field input {
+            border: 1px solid var(--chip-border);
+            background: var(--chip-bg);
+            color: var(--chip-text);
+            border-radius: 10px;
+            padding: 9px 10px;
+            font-family: inherit;
+            font-size: 13px;
+        }
+
+        .field input[readonly] {
+            cursor: default;
+            caret-color: transparent;
+            user-select: none;
+        }
+
+        .field textarea {
+            border: 1px solid var(--chip-border);
+            background: var(--chip-bg);
+            color: var(--chip-text);
+            border-radius: 10px;
+            padding: 9px 10px;
+            font-family: inherit;
+            font-size: 13px;
+            min-height: 42px;
+            max-height: 42px;
+            resize: none;
+        }
+
+        .btn {
+            border: 1px solid var(--chip-border);
+            background: linear-gradient(135deg, var(--sidebar-color-1), var(--sidebar-color-2));
+            color: #fff;
+            padding: 10px 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 700;
+            font-family: inherit;
+            min-height: 42px;
+        }
+
+        .btn:hover {
+            opacity: 0.95;
+        }
+
+        .table-panel {
+            padding: 12px;
+            overflow: hidden;
+        }
+
+        .table-wrap {
+            overflow: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 760px;
+        }
+
+        th,
+        td {
+            padding: 10px 8px;
+            border-bottom: 1px solid #e7f3eb;
+            text-align: left;
+            font-size: 13px;
+        }
+
+        th {
+            background: var(--chip-bg);
+            color: var(--text-main-color);
+            font-size: 12px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            border: 1px solid var(--chip-border);
+            background: var(--chip-bg);
+            color: var(--chip-text);
+            border-radius: 8px;
+            padding: 4px 8px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .action-btn.delete {
+            border-color: #f4b2b2;
+            color: #b91c1c;
+            background: #fff1f1;
+        }
+
+        .status {
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        .status.pending {
+            color: var(--warn);
+        }
+
+        .status.overdue {
+            color: var(--risk);
+        }
+
+        .status.upcoming {
+            color: var(--good);
+        }
+
+        @media (max-width: 1200px) {
+            .assignment-form {
+                grid-template-columns: repeat(2, minmax(190px, 1fr));
+            }
+        }
+
+        @media (max-width: 920px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 680px) {
+            .assignment-form {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="layout">
+        <aside class="sidebar">
+            <div class="brand">
+                <img id="collegeLogo" src="../assets/images/logo.png" alt="College logo">
+                <h1>Student360<br>Teacher</h1>
+            </div>
+
+            <div class="teacher-card">
+                <p>Teacher Panel</p>
+                <h2 id="teacherName">Ms. Teacher</h2>
+                <p id="collegeLabel">College: BRECW</p>
+            </div>
+
+            <ul class="menu">
+                <li><a id="dashboardLink" href="teacher.html">Dashboard</a></li>
+                <li><a id="studentsLink" href="teacher-students.html">Student Details</a></li>
+                <li><a class="active" id="assignmentsLink" href="teacher-assignments.html">Assignments</a></li>
+                <li><a id="teacherParentLink" href="teacherparent.html">Teacher Parent</a></li>
+                <li><a id="teacherDetailsLink" href="teacherdetails.html">Teacher Details</a></li>
+                <li><a href="#" onclick="logout(event)">Sign Out</a></li>
+            </ul>
+        </aside>
+
+        <main class="main">
+            <section class="topbar">
+                <div>
+                    <h3>Assignments</h3>
+                    <p>Add homework/tasks with due date. Only your subject assignments are allowed and students in selected class will see them.</p>
+                </div>
+                <span class="pill" id="assignmentCountPill">Total: 0</span>
+            </section>
+
+            <section class="form-panel">
+                <form id="assignmentForm" class="assignment-form">
+                    <div class="field">
+                        <label>Your Subject</label>
+                        <input id="subjectDisplay" type="text" readonly>
+                    </div>
+
+                    <div class="field">
+                        <label for="targetClass">Select Class</label>
+                        <select id="targetClass" required>
+                            <option value="">Select</option>
+                            <option>CSE-A</option>
+                            <option>CSE-B</option>
+                            <option>CSE-C</option>
+                            <option>ECE-A</option>
+                            <option>IT-A</option>
+                            <option>IT-B</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="task">Add Assignment</label>
+                        <input id="task" type="text" placeholder="Enter homework / task" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="description">Description</label>
+                        <textarea id="description" placeholder="Enter description"></textarea>
+                    </div>
+
+                    <div class="field">
+                        <label for="dueDate">Add Due Date</label>
+                        <input id="dueDate" type="date" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="attachment">Attachment</label>
+                        <input id="attachment" type="file" accept=".doc,.docx,.pdf,image/*">
+                    </div>
+
+                    <button class="btn" type="submit">Add Assignment</button>
+                </form>
+            </section>
+
+            <section class="table-panel">
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Class</th>
+                                <th>Subject</th>
+                                <th>Task</th>
+                                <th>Description</th>
+                                <th>Due Date</th>
+                                <th>Status</th>
+                                <th>Attachment</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="assignmentRows"></tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        const collegeLogoMap = {
+            "BRECW": "../assets/images/brecw.jpeg",
+            "Anurag University": "../assets/images/anurag.png",
+            "BVRIT": "../assets/images/bvrit.png",
+            "MREM": "../assets/images/mrem.jpeg",
+            "JNTUH": "../assets/images/jntuh.jpeg",
+            "CBIT": "../assets/images/cbit.jpeg",
+            "VNRVJIET": "../assets/images/vnrvjiet.png"
+        };
+
+        const collegeThemeMap = {
+            "BRECW": ["#2f8f46", "#89d36c", "#124b2e", "#4b7a63", "#d7efdf", "#96d6ae", "#effaf2", "#14532d"],
+            "Anurag University": ["#d97706", "#f59e0b", "#92400e", "#a16207", "#f6d9a6", "#f0b45a", "#fff7e8", "#92400e"],
+            "BVRIT": ["#991b1b", "#dc2626", "#7f1d1d", "#991b1b", "#f4c7c7", "#e88f8f", "#fff2f2", "#7f1d1d"],
+            "MREM": ["#8B4513", "#D2691E", "#5a2f0d", "#7c4a22", "#ecd3bf", "#d89c6d", "#fff6ef", "#6f3d14"],
+            "JNTUH": ["#5b21b6", "#a855f7", "#3f0f5c", "#5b2286", "#e6d4fb", "#c59df4", "#f7f1ff", "#4c1d95"],
+            "CBIT": ["#0d9488", "#14b8a6", "#134e4a", "#0f766e", "#c7ece8", "#86d9d1", "#eefcf9", "#115e59"],
+            "VNRVJIET": ["#7f1d1d", "#b91c1c", "#5f1718", "#7b2121", "#f2c6c6", "#dc9d9d", "#fff3f3", "#7f1d1d"]
+        };
+
+        function getStorageKey(key) {
+            const currentUser = localStorage.getItem("student360CurrentUser");
+            return currentUser ? `${currentUser}_${key}` : key;
+        }
+
+        function logout(event) {
+            event.preventDefault();
+            localStorage.clear();
+            window.location.href = "../index.html";
+        }
+
+        function getFromStorage(key) {
+            return localStorage.getItem(getStorageKey(key));
+        }
+
+        function deriveTeacherSubject(seedText) {
+            const subjects = ["Mathematics", "Physics", "Chemistry", "English", "Computer Science", "Electronics", "Data Structures"];
+            const text = (seedText || "teacher").toString();
+            let hash = 0;
+            for (let i = 0; i < text.length; i++) {
+                hash = (hash * 31 + text.charCodeAt(i)) >>> 0;
+            }
+            return subjects[hash % subjects.length];
+        }
+
+        function assignmentsStorageKey(college) {
+            return `student360Assignments::${college}`;
+        }
+
+        function getAssignments(college) {
+            const raw = localStorage.getItem(assignmentsStorageKey(college));
+            if (!raw) return [];
+            try {
+                const parsed = JSON.parse(raw);
+                return Array.isArray(parsed) ? parsed : [];
+            } catch {
+                return [];
+            }
+        }
+
+        function saveAssignments(college, assignments) {
+            localStorage.setItem(assignmentsStorageKey(college), JSON.stringify(assignments));
+        }
+
+        function getStatus(dueDate) {
+            const today = new Date();
+            const todayOnly = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+            const due = new Date(dueDate + "T00:00:00");
+
+            if (due < todayOnly) return "overdue";
+            if (due.getTime() === todayOnly.getTime()) return "pending";
+            return "upcoming";
+        }
+
+        function formatDate(dateValue) {
+            const date = new Date(dateValue + "T00:00:00");
+            return date.toLocaleDateString("en-IN", { year: "numeric", month: "short", day: "2-digit" });
+        }
+
+        function renderAssignments(college) {
+            const rows = document.getElementById("assignmentRows");
+            const pill = document.getElementById("assignmentCountPill");
+            rows.innerHTML = "";
+
+            const assignments = getAssignments(college)
+                .slice()
+                .sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+
+            pill.textContent = `Total: ${assignments.length}`;
+
+            if (assignments.length === 0) {
+                rows.innerHTML = "<tr><td colspan=\"8\">No assignments added yet.</td></tr>";
+                return;
+            }
+
+            assignments.forEach((item) => {
+                const status = getStatus(item.dueDate);
+                const safeDescription = item.description ? item.description : "-";
+                const attachmentCell = item.attachment && item.attachment.dataUrl
+                    ? `<a href="${item.attachment.dataUrl}" download="${item.attachment.name}">Download</a>`
+                    : "-";
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td>${item.className || "N/A"}</td>
+                    <td>${item.subject}</td>
+                    <td>${item.task}</td>
+                    <td>${safeDescription}</td>
+                    <td>${formatDate(item.dueDate)}</td>
+                    <td><span class="status ${status}">${status.toUpperCase()}</span></td>
+                    <td>${attachmentCell}</td>
+                    <td>
+                        <div class="actions">
+                            <button class="action-btn" type="button" data-action="edit" data-id="${item.id}">Edit</button>
+                            <button class="action-btn" type="button" data-action="extend" data-id="${item.id}">Extend</button>
+                            <button class="action-btn delete" type="button" data-action="delete" data-id="${item.id}">Delete</button>
+                        </div>
+                    </td>
+                `;
+                rows.appendChild(tr);
+            });
+        }
+
+        function handleAssignmentAction(action, assignmentId, college) {
+            const assignments = getAssignments(college);
+            const idx = assignments.findIndex((item) => item.id === assignmentId);
+            if (idx === -1) return;
+
+            if (action === "delete") {
+                const yes = confirm("Delete this assignment?");
+                if (!yes) return;
+                assignments.splice(idx, 1);
+                saveAssignments(college, assignments);
+                renderAssignments(college);
+                return;
+            }
+
+            if (action === "extend") {
+                const currentDue = assignments[idx].dueDate || "";
+                const nextDue = prompt("Enter new due date (YYYY-MM-DD)", currentDue);
+                if (!nextDue) return;
+
+                const isValid = /^\d{4}-\d{2}-\d{2}$/.test(nextDue);
+                if (!isValid) {
+                    alert("Please enter date in YYYY-MM-DD format.");
+                    return;
+                }
+
+                assignments[idx].dueDate = nextDue;
+                assignments[idx].updatedAt = new Date().toISOString();
+                saveAssignments(college, assignments);
+                renderAssignments(college);
+                return;
+            }
+
+            if (action === "edit") {
+                const currentTask = assignments[idx].task || "";
+                const currentDesc = assignments[idx].description || "";
+                const currentClass = assignments[idx].className || "";
+
+                const updatedTask = prompt("Edit task", currentTask);
+                if (!updatedTask) return;
+
+                const updatedDesc = prompt("Edit description", currentDesc);
+                if (updatedDesc === null) return;
+
+                const updatedClass = prompt("Edit class (CSE-A/CSE-B/CSE-C/ECE-A/IT-A/IT-B)", currentClass);
+                if (!updatedClass) return;
+
+                const allowedClasses = ["CSE-A", "CSE-B", "CSE-C", "ECE-A", "IT-A", "IT-B"];
+                if (!allowedClasses.includes(updatedClass.trim().toUpperCase())) {
+                    alert("Invalid class. Please use CSE-A, CSE-B, CSE-C, ECE-A, IT-A, or IT-B.");
+                    return;
+                }
+
+                assignments[idx].task = updatedTask.trim();
+                assignments[idx].description = updatedDesc.trim();
+                assignments[idx].className = updatedClass.trim().toUpperCase();
+                assignments[idx].updatedAt = new Date().toISOString();
+                saveAssignments(college, assignments);
+                renderAssignments(college);
+            }
+        }
+
+        function readAttachment(file) {
+            if (!file) return Promise.resolve(null);
+
+            const maxBytes = 1.5 * 1024 * 1024;
+            if (file.size > maxBytes) {
+                alert("Attachment too large. Please upload a file up to 1.5 MB.");
+                return Promise.resolve(null);
+            }
+
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    resolve({
+                        name: file.name,
+                        type: file.type || "application/octet-stream",
+                        dataUrl: reader.result
+                    });
+                };
+                reader.onerror = () => reject(new Error("Failed to read file"));
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function applyCollegeTheme(college) {
+            const [sidebarA, sidebarB, textMain, textMuted, lineColor, chipBorder, chipBg, chipText] =
+                collegeThemeMap[college] || collegeThemeMap["BRECW"];
+
+            document.documentElement.style.setProperty("--sidebar-color-1", sidebarA);
+            document.documentElement.style.setProperty("--sidebar-color-2", sidebarB);
+            document.documentElement.style.setProperty("--text-main-color", textMain);
+            document.documentElement.style.setProperty("--text-muted-color", textMuted);
+            document.documentElement.style.setProperty("--line", lineColor);
+            document.documentElement.style.setProperty("--chip-border", chipBorder);
+            document.documentElement.style.setProperty("--chip-bg", chipBg);
+            document.documentElement.style.setProperty("--chip-text", chipText);
+        }
+
+        const params = new URLSearchParams(window.location.search);
+        const selectedCollege = params.get("college") || getFromStorage("student360College") || "BRECW";
+        const teacherName = getFromStorage("student360Name") || "Ms. Teacher";
+        const teacherEmail = getFromStorage("student360Email") || teacherName;
+        const teacherSubject = getFromStorage("student360TeacherSubject") || deriveTeacherSubject(teacherEmail);
+        const collegeLogo = collegeLogoMap[selectedCollege] || "../assets/images/logo.png";
+
+        document.getElementById("teacherName").textContent = teacherName;
+        document.getElementById("collegeLabel").textContent = `College: ${selectedCollege}`;
+        document.getElementById("collegeLogo").src = collegeLogo;
+        document.getElementById("dashboardLink").href = `teacher.html?college=${encodeURIComponent(selectedCollege)}`;
+        document.getElementById("studentsLink").href = `teacher-students.html?college=${encodeURIComponent(selectedCollege)}`;
+        document.getElementById("assignmentsLink").href = `teacher-assignments.html?college=${encodeURIComponent(selectedCollege)}`;
+        document.getElementById("teacherParentLink").href = `teacherparent.html?college=${encodeURIComponent(selectedCollege)}`;
+        document.getElementById("teacherDetailsLink").href = `teacherdetails.html?college=${encodeURIComponent(selectedCollege)}`;
+        document.getElementById("subjectDisplay").value = teacherSubject;
+
+        applyCollegeTheme(selectedCollege);
+        renderAssignments(selectedCollege);
+
+        document.getElementById("assignmentForm").addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            const targetClass = document.getElementById("targetClass").value.trim();
+            const task = document.getElementById("task").value.trim();
+            const description = document.getElementById("description").value.trim();
+            const dueDate = document.getElementById("dueDate").value;
+            const attachmentFile = document.getElementById("attachment").files[0] || null;
+
+            if (!targetClass || !task || !dueDate) {
+                return;
+            }
+
+            const attachment = await readAttachment(attachmentFile);
+
+            const assignments = getAssignments(selectedCollege);
+            assignments.push({
+                id: `${Date.now()}-${Math.random().toString(16).slice(2, 8)}`,
+                className: targetClass,
+                subject: teacherSubject,
+                task,
+                description,
+                dueDate,
+                createdAt: new Date().toISOString(),
+                createdBy: teacherName,
+                attachment
+            });
+
+            saveAssignments(selectedCollege, assignments);
+            renderAssignments(selectedCollege);
+            event.target.reset();
+            document.getElementById("subjectDisplay").value = teacherSubject;
+        });
+
+        document.getElementById("assignmentRows").addEventListener("click", (event) => {
+            const button = event.target.closest("button[data-action]");
+            if (!button) return;
+
+            const action = button.dataset.action;
+            const assignmentId = button.dataset.id;
+            handleAssignmentAction(action, assignmentId, selectedCollege);
+        });
+    </script>
+</body>
+</html>

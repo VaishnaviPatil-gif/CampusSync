@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student360 | Teacher Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-a: #56ab2f;
+            --bg-b: #a8e063;
+            --sidebar-color-1: #2f8f46;
+            --sidebar-color-2: #89d36c;
+            --panel: rgba(255, 255, 255, 0.88);
+            --panel-strong: #ffffff;
+            --text-main-color: #124b2e;
+            --text-muted-color: #4b7a63;
+            --line: #d7efdf;
+            --chip-border: #96d6ae;
+            --chip-bg: #effaf2;
+            --chip-text: #14532d;
+            --bar-a: #4ade80;
+            --bar-b: #16a34a;
+            --good: #16a34a;
+            --warn: #f59e0b;
+            --risk: #dc2626;
+            --shadow: rgba(15, 23, 42, 0.14);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Poppins", sans-serif;
+            min-height: 100vh;
+            color: var(--text-main-color);
+            background: #ffffff;
+        }
+
+        .layout {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+        }
+
+        .sidebar {
+            padding: 20px 16px;
+            border-right: 1px solid rgba(17, 84, 41, 0.25);
+            background: linear-gradient(160deg, var(--sidebar-color-1), var(--sidebar-color-2));
+            color: #f8fbff;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+        }
+
+        .brand img {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            background: #ffffff;
+        }
+
+        .brand h1 {
+            font-size: 18px;
+            line-height: 1.1;
+        }
+
+        .teacher-card {
+            margin-top: 16px;
+            padding: 14px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .teacher-card p {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .teacher-card h2 {
+            font-size: 20px;
+            margin-top: 4px;
+        }
+
+        .menu {
+            margin-top: 16px;
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .menu a {
+            display: block;
+            text-decoration: none;
+            color: #f8fbff;
+            padding: 11px 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.08);
+            transition: 0.2s ease;
+        }
+
+        .menu a.active,
+        .menu a:hover {
+            transform: translateX(3px);
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.42);
+        }
+
+        .main {
+            background: #ffffff;
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .topbar {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            box-shadow: 0 12px 28px var(--shadow);
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .topbar h3 {
+            font-size: 21px;
+            color: var(--text-main-color);
+        }
+
+        .topbar p {
+            font-size: 13px;
+            color: var(--text-muted-color);
+        }
+
+        .chips {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .chip {
+            padding: 6px 10px;
+            border-radius: 999px;
+            border: 1px solid var(--chip-border);
+            background: var(--chip-bg);
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--chip-text);
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(180px, 1fr));
+            gap: 12px;
+        }
+
+        .metric-card {
+            background: var(--panel-strong);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            box-shadow: 0 10px 24px var(--shadow);
+            padding: 14px;
+        }
+
+        .metric-card p {
+            color: var(--text-muted-color);
+            font-size: 13px;
+        }
+
+        .metric-card h4 {
+            margin-top: 4px;
+            font-size: 28px;
+            line-height: 1.1;
+        }
+
+        .metric-card .sub {
+            margin-top: 6px;
+            font-size: 12px;
+        }
+
+        .chart-panel,
+        .risk-panel {
+            background: var(--panel-strong);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            box-shadow: 0 10px 24px var(--shadow);
+            padding: 14px;
+        }
+
+        .panel-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .panel-head h5 {
+            font-size: 18px;
+        }
+
+        .panel-head p {
+            font-size: 12px;
+            color: var(--text-muted-color);
+        }
+
+        .chart-wrap {
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            background: linear-gradient(180deg, #ffffff, var(--chip-bg));
+            padding: 10px;
+        }
+
+        .bars {
+            height: 220px;
+            display: flex;
+            align-items: flex-end;
+            gap: 8px;
+            padding: 10px 8px;
+            border-bottom: 2px solid var(--chip-border);
+        }
+
+        .bar {
+            flex: 1;
+            min-width: 16px;
+            border-radius: 8px 8px 0 0;
+            background: linear-gradient(180deg, var(--bar-a), var(--bar-b));
+            position: relative;
+            box-shadow: 0 8px 20px rgba(18, 75, 46, 0.24);
+        }
+
+        .bar span {
+            position: absolute;
+            top: -22px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 11px;
+            color: var(--chip-text);
+            font-weight: 600;
+        }
+
+        .labels {
+            display: flex;
+            gap: 8px;
+            margin-top: 6px;
+        }
+
+        .labels p {
+            flex: 1;
+            text-align: center;
+            font-size: 11px;
+            color: var(--text-muted-color);
+        }
+
+        .risk-table-wrap {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 660px;
+        }
+
+        th,
+        td {
+            border-bottom: 1px solid #e2e8f0;
+            padding: 10px 8px;
+            text-align: left;
+            font-size: 13px;
+        }
+
+        th {
+            font-size: 12px;
+            color: var(--text-main-color);
+            background: var(--chip-bg);
+        }
+
+        .badge {
+            display: inline-block;
+            min-width: 68px;
+            text-align: center;
+            border-radius: 999px;
+            padding: 4px 8px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .badge.low {
+            background: var(--good);
+        }
+
+        .badge.medium {
+            background: var(--warn);
+        }
+
+        .badge.high {
+            background: var(--risk);
+        }
+
+        .telegram-panel {
+            background: var(--panel-strong);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            box-shadow: 0 10px 24px var(--shadow);
+            padding: 14px;
+        }
+
+        .telegram-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .telegram-field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .telegram-field label {
+            font-size: 12px;
+            color: var(--text-main-color);
+            font-weight: 600;
+        }
+
+        .telegram-field input,
+        .telegram-field select {
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            padding: 9px 10px;
+            font-family: inherit;
+            font-size: 13px;
+            background: #f8fdf9;
+            color: var(--text-main-color);
+        }
+
+        .telegram-actions {
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .telegram-btn {
+            border: 1px solid var(--chip-border);
+            border-radius: 10px;
+            padding: 9px 12px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--chip-text);
+            background: var(--chip-bg);
+            cursor: pointer;
+        }
+
+        .telegram-status {
+            font-size: 12px;
+            color: var(--text-muted-color);
+        }
+
+        @media (max-width: 980px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                border-right: 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.22);
+            }
+
+            .metrics {
+                grid-template-columns: 1fr;
+            }
+
+            .telegram-form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .topbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="layout">
+        <aside class="sidebar">
+            <div class="brand">
+                <img id="collegeLogo" src="../assets/images/logo.png" alt="College logo">
+                <h1>Student360<br>Teacher</h1>
+            </div>
+
+            <div class="teacher-card">
+                <p>Teacher Panel</p>
+                <h2 id="teacherName">Ms. Teacher</h2>
+                <p id="collegeLabel">College: BRECW</p>
+            </div>
+
+            <ul class="menu">
+                <li><a class="active" id="dashboardLink" href="teacher.html">Dashboard</a></li>
+                <li><a id="studentsLink" href="teacher-students.html">Student Details</a></li>
+                <li><a id="assignmentsLink" href="teacher-assignments.html">Assignments</a></li>
+                <li><a id="teacherParentLink" href="teacherparent.html">Teacher Parent</a></li>
+                <li><a id="teacherDetailsLink" href="teacherdetails.html">Teacher Details</a></li>
+                <li><a href="#telegramAlertsPanel">Telegram Alerts</a></li>
+                <li><a href="#" onclick="logout(event)">Sign Out</a></li>
+            </ul>
+        </aside>
+
+        <main class="main">
+            <section class="topbar">
+                <div>
+                    <h3>Teacher Dashboard</h3>
+                    <p>Track class performance and identify student risk quickly.</p>
+                </div>
+                <div class="chips">
+                    <span class="chip">Main Page</span>
+                    <span class="chip" id="riskStamp">Risk Scan: Active</span>
+                </div>
+            </section>
+
+            <section class="metrics">
+                <article class="metric-card">
+                    <p>Total Students</p>
+                    <h4 id="totalStudents">0</h4>
+                    <p class="sub">Students in current class set</p>
+                </article>
+
+                <article class="metric-card">
+                    <p>Avg Attendance</p>
+                    <h4 id="avgAttendance">0%</h4>
+                    <p class="sub">Class attendance trend</p>
+                </article>
+
+                <article class="metric-card">
+                    <p>High-Risk Students</p>
+                    <h4 id="highRiskStudents">0</h4>
+                    <p class="sub">Any high risk in attendance, marks, or stress</p>
+                </article>
+            </section>
+
+            <section class="chart-panel">
+                <div class="panel-head">
+                    <h5>Class Performance Chart</h5>
+                    <p>Average marks by recent weeks</p>
+                </div>
+
+                <div class="chart-wrap">
+                    <div id="bars" class="bars"></div>
+                    <div id="labels" class="labels"></div>
+                </div>
+            </section>
+
+            <section class="risk-panel">
+                <div class="panel-head">
+                    <h5>Risk Summary of Students</h5>
+                    <p>Attendance risk, marks risk, and stress risk</p>
+                </div>
+
+                <div class="risk-table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Student</th>
+                                <th>Attendance</th>
+                                <th>Marks</th>
+                                <th>Stress</th>
+                                <th>Attendance Risk</th>
+                                <th>Marks Risk</th>
+                                <th>Stress Risk</th>
+                            </tr>
+                        </thead>
+                        <tbody id="riskRows"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="telegram-panel" id="telegramAlertsPanel">
+                <div class="panel-head">
+                    <h5>Telegram Alerts</h5>
+                    <p>Send an alert to the concerned parent</p>
+                </div>
+
+                <div class="telegram-form-grid">
+                    <div class="telegram-field">
+                        <label for="alertStudentId">Student ID</label>
+                        <select id="alertStudentId"></select>
+                    </div>
+                    <div class="telegram-field">
+                        <label for="alertClassName">Class</label>
+                        <select id="alertClassName"></select>
+                    </div>
+                    <div class="telegram-field">
+                        <label for="alertRiskLevel">Risk Level</label>
+                        <select id="alertRiskLevel">
+                            <option value="high">High</option>
+                            <option value="medium">Medium</option>
+                            <option value="low">Low</option>
+                        </select>
+                    </div>
+                    <div class="telegram-field">
+                        <label for="alertReasonCategory">Reason Category</label>
+                        <select id="alertReasonCategory">
+                            <option value="Attendance concern">Attendance concern</option>
+                            <option value="Academic performance concern">Academic performance concern</option>
+                            <option value="Fee payment reminder">Fee payment reminder</option>
+                            <option value="Behavioral observation">Behavioral observation</option>
+                            <option value="Health and wellness update">Health and wellness update</option>
+                            <option value="Examination preparation alert">Examination preparation alert</option>
+                            <option value="Assignment submission pending">Assignment submission pending</option>
+                            <option value="Disciplinary notice">Disciplinary notice</option>
+                            <option value="General teacher update">General teacher update</option>
+                        </select>
+                    </div>
+                    <div class="telegram-field">
+                        <label for="alertReasonDetails">Additional Notes (Optional)</label>
+                        <input id="alertReasonDetails" type="text" placeholder="Add any specific context for the parent">
+                    </div>
+                </div>
+
+                <div class="telegram-actions">
+                    <button class="telegram-btn" type="button" id="sendTelegramAlertBtn">Send Telegram Alert</button>
+                    <span class="telegram-status" id="telegramSendStatus">Ready to send.</span>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        const collegeLogoMap = {
+              "BRECW": "../assets/images/brecw.jpeg",
+              "Anurag University": "../assets/images/anurag.png",
+              "BVRIT": "../assets/images/bvrit.png",
+              "MREM": "../assets/images/mrem.jpeg",
+              "JNTUH": "../assets/images/jntuh.jpeg",
+              "CBIT": "../assets/images/cbit.jpeg",
+              "VNRVJIET": "../assets/images/vnrvjiet.png"
+        };
+
+        const collegeAliases = {
+            "brecw": "BRECW",
+            "anuraguniversity": "Anurag University",
+            "bvrit": "BVRIT",
+            "mrem": "MREM",
+            "jntuh": "JNTUH",
+            "cbit": "CBIT",
+            "vnrvjiet": "VNRVJIET"
+        };
+
+        function resolveCollegeName(value) {
+            const key = (value || "").toString().trim().toLowerCase().replace(/\s+/g, "");
+            return collegeAliases[key] || "BRECW";
+        }
+
+        const collegeThemes = {
+            "BRECW": ["#56ab2f", "#a8e063"],
+            "Anurag University": ["#faa84a", "#fcc470"],
+            "BVRIT": ["#cb2d3e", "#ef473a"],
+            "MREM": ["#A0522D", "#D2691E"],
+            "JNTUH": ["#4f46e5", "#ec4899"],
+            "CBIT": ["#11998e", "#38ef7d"],
+            "VNRVJIET": ["#b91c1c", "#ef4444"]
+        };
+
+        const collegeSidebarThemes = {
+            "BRECW": ["#2f8f46", "#89d36c", "#124b2e", "#4b7a63", "#d7efdf", "#96d6ae", "#effaf2", "#14532d", "#4ade80", "#16a34a"],
+            "Anurag University": ["#d97706", "#f59e0b", "#92400e", "#a16207", "#f6d9a6", "#f0b45a", "#fff7e8", "#92400e", "#f59e0b", "#d97706"],
+            "BVRIT": ["#991b1b", "#dc2626", "#7f1d1d", "#991b1b", "#f4c7c7", "#e88f8f", "#fff2f2", "#7f1d1d", "#f87171", "#dc2626"],
+            "MREM": ["#8B4513", "#D2691E", "#5a2f0d", "#7c4a22", "#ecd3bf", "#d89c6d", "#fff6ef", "#6f3d14", "#e59d5d", "#c56a2a"],
+            "JNTUH": ["#5b21b6", "#a855f7", "#3f0f5c", "#5b2286", "#e6d4fb", "#c59df4", "#f7f1ff", "#4c1d95", "#c084fc", "#9333ea"],
+            "CBIT": ["#0d9488", "#14b8a6", "#134e4a", "#0f766e", "#c7ece8", "#86d9d1", "#eefcf9", "#115e59", "#2dd4bf", "#14b8a6"],
+            "VNRVJIET": ["#7f1d1d", "#b91c1c", "#5f1718", "#7b2121", "#f2c6c6", "#dc9d9d", "#fff3f3", "#7f1d1d", "#ef4444", "#b91c1c"]
+        };
+
+        const classPerformance = [72, 74, 70, 76, 79, 81, 78, 84];
+        const weekLabels = ["W1", "W2", "W3", "W4", "W5", "W6", "W7", "W8"];
+        const BACKEND_URL = "http://localhost:5000";
+
+        const studentRiskData = [
+            { name: "Ananya", attendance: 92, marks: 78, stress: 4 },
+            { name: "Rahul", attendance: 68, marks: 52, stress: 8 },
+            { name: "Ishita", attendance: 85, marks: 88, stress: 3 },
+            { name: "Sagar", attendance: 72, marks: 47, stress: 7 },
+            { name: "Kavya", attendance: 90, marks: 81, stress: 5 },
+            { name: "Ritesh", attendance: 64, marks: 58, stress: 9 },
+            { name: "Meghana", attendance: 78, marks: 66, stress: 6 },
+            { name: "Vikram", attendance: 88, marks: 74, stress: 5 }
+        ];
+
+        function getStorageKey(key) {
+            const currentUser = localStorage.getItem("student360CurrentUser");
+            return currentUser ? `${currentUser}_${key}` : key;
+        }
+
+        function logout(event) {
+            event.preventDefault();
+            // Clear all student360 related data from localStorage
+            localStorage.clear();
+            // Add a small delay to ensure storage is cleared before redirect
+            setTimeout(() => {
+                window.location.href = "../index.html";
+            }, 100);
+        }
+
+        function getFromStorage(key) {
+            return localStorage.getItem(getStorageKey(key));
+        }
+
+        function getAttendanceStatus(value) {
+            if (value < 65) return "low";
+            if (value <= 75) return "medium";
+            return "good";
+        }
+
+        function getAttendanceBadgeClass(status) {
+            if (status === "low") return "high";
+            if (status === "medium") return "medium";
+            return "low";
+        }
+
+        function getMarksRisk(value) {
+            if (value < 50) return "high";
+            if (value < 65) return "medium";
+            return "low";
+        }
+
+        function getStressRisk(value) {
+            if (value > 7) return "high";
+            if (value > 5) return "medium";
+            return "low";
+        }
+
+        function countHighRiskStudents(data) {
+            return data.filter((student) => {
+                const attendanceRisk = getAttendanceStatus(student.attendance);
+                const marksRisk = getMarksRisk(student.marks);
+                const stressRisk = getStressRisk(student.stress);
+                return attendanceRisk === "low" || marksRisk === "high" || stressRisk === "high";
+            }).length;
+        }
+
+        function renderChart(values, labels) {
+            const bars = document.getElementById("bars");
+            const labelsRow = document.getElementById("labels");
+            const maxValue = 100;
+
+            values.forEach((value, index) => {
+                const bar = document.createElement("div");
+                bar.className = "bar";
+                bar.style.height = `${(value / maxValue) * 100}%`;
+
+                const score = document.createElement("span");
+                score.textContent = value;
+                bar.appendChild(score);
+                bars.appendChild(bar);
+
+                const label = document.createElement("p");
+                label.textContent = labels[index];
+                labelsRow.appendChild(label);
+            });
+        }
+
+        function renderRiskRows(data) {
+            const tbody = document.getElementById("riskRows");
+
+            data.forEach((student) => {
+                const attendanceRisk = getAttendanceStatus(student.attendance);
+                const attendanceBadgeClass = getAttendanceBadgeClass(attendanceRisk);
+                const marksRisk = getMarksRisk(student.marks);
+                const stressRisk = getStressRisk(student.stress);
+
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${student.name}</td>
+                    <td>${student.attendance}%</td>
+                    <td>${student.marks}%</td>
+                    <td>${student.stress}/10</td>
+                    <td><span class="badge ${attendanceBadgeClass}">${attendanceRisk.toUpperCase()}</span></td>
+                    <td><span class="badge ${marksRisk}">${marksRisk.toUpperCase()}</span></td>
+                    <td><span class="badge ${stressRisk}">${stressRisk.toUpperCase()}</span></td>
+                `;
+
+                tbody.appendChild(row);
+            });
+        }
+
+        async function sendAlertToParent() {
+            const statusNode = document.getElementById("telegramSendStatus");
+            const studentId = document.getElementById("alertStudentId").value;
+            const className = document.getElementById("alertClassName").value;
+            const riskLevel = document.getElementById("alertRiskLevel").value;
+            const reasonCategory = document.getElementById("alertReasonCategory").value;
+            const reasonDetails = document.getElementById("alertReasonDetails").value.trim();
+            const reason = reasonDetails ? `${reasonCategory}: ${reasonDetails}` : reasonCategory;
+
+            if (!studentId) {
+                statusNode.textContent = "Select a student before sending.";
+                return;
+            }
+
+            statusNode.textContent = "Sending alert...";
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/alert/parent`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ studentId, className, riskLevel, reason })
+                });
+
+                const result = await response.json();
+                if (result.success) {
+                    statusNode.textContent = "Telegram alert sent to parent successfully.";
+                } else {
+                    statusNode.textContent = result.message || "Unable to send Telegram alert.";
+                }
+            } catch (error) {
+                statusNode.textContent = `Unable to send Telegram alert: ${error.message}`;
+            }
+        }
+
+        async function loadStudentsForAlertForm() {
+            const studentSelect = document.getElementById("alertStudentId");
+            const classSelect = document.getElementById("alertClassName");
+
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/students?college=${encodeURIComponent(selectedCollege)}`);
+                const result = await response.json();
+                if (!result.success || !Array.isArray(result.data)) {
+                    return;
+                }
+
+                studentSelect.innerHTML = "";
+                const classSet = new Set();
+                const studentsForCollege = result.data;
+
+                if (studentsForCollege.length === 0) {
+                  studentSelect.innerHTML = '<option value="">No students found for selected college</option>';
+                  classSelect.innerHTML = '<option value="">No class available</option>';
+                  return;
+                }
+
+                studentsForCollege.forEach((student) => {
+                    const option = document.createElement("option");
+                    option.value = String(student.id);
+                    option.textContent = `${student.id} - ${student.name}`;
+                    option.dataset.className = student.class;
+                    studentSelect.appendChild(option);
+                    classSet.add(student.class);
+                });
+
+                classSelect.innerHTML = "";
+                Array.from(classSet)
+                    .sort()
+                    .forEach((className) => {
+                        const option = document.createElement("option");
+                        option.value = className;
+                        option.textContent = className;
+                        classSelect.appendChild(option);
+                    });
+
+                if (studentSelect.options.length > 0) {
+                    classSelect.value = studentSelect.options[0].dataset.className || classSelect.value;
+                }
+
+                studentSelect.addEventListener("change", () => {
+                    const selectedOption = studentSelect.options[studentSelect.selectedIndex];
+                    const selectedClass = selectedOption?.dataset?.className;
+                    if (selectedClass) {
+                        classSelect.value = selectedClass;
+                    }
+                });
+            } catch {
+                // Keep the form usable even if student list loading fails.
+            }
+        }
+
+        async function sendBackendAlertMessage(message = "Test alert from Student360") {
+            return fetch(`${BACKEND_URL}/api/alert`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    message
+                })
+            });
+        }
+
+        const params = new URLSearchParams(window.location.search);
+        
+        // Check if user is logged in
+        const currentUser = localStorage.getItem("student360CurrentUser");
+        if (!currentUser) {
+            // Redirect to login page if not logged in
+            window.location.href = "../index.html";
+        }
+        
+        const selectedCollege = resolveCollegeName(params.get("college") || getFromStorage("student360College"));
+        const teacherName = getFromStorage("student360Name") || "Ms. Teacher";
+        const collegeLogo = collegeLogoMap[selectedCollege] || "../assets/images/logo.png";
+
+        const [bgA, bgB] = collegeThemes[selectedCollege] || collegeThemes["BRECW"];
+        const [sidebarA, sidebarB, textMain, textMuted, lineColor, chipBorder, chipBg, chipText, barA, barB] =
+            collegeSidebarThemes[selectedCollege] || collegeSidebarThemes["BRECW"];
+
+        document.documentElement.style.setProperty("--bg-a", bgA);
+        document.documentElement.style.setProperty("--bg-b", bgB);
+        document.documentElement.style.setProperty("--sidebar-color-1", sidebarA);
+        document.documentElement.style.setProperty("--sidebar-color-2", sidebarB);
+        document.documentElement.style.setProperty("--text-main-color", textMain);
+        document.documentElement.style.setProperty("--text-muted-color", textMuted);
+        document.documentElement.style.setProperty("--line", lineColor);
+        document.documentElement.style.setProperty("--chip-border", chipBorder);
+        document.documentElement.style.setProperty("--chip-bg", chipBg);
+        document.documentElement.style.setProperty("--chip-text", chipText);
+        document.documentElement.style.setProperty("--bar-a", barA);
+        document.documentElement.style.setProperty("--bar-b", barB);
+
+        const totalStudents = studentRiskData.length;
+        const avgAttendance = Math.round(
+            studentRiskData.reduce((sum, student) => sum + student.attendance, 0) / totalStudents
+        );
+        const highRiskStudents = countHighRiskStudents(studentRiskData);
+
+        document.getElementById("teacherName").textContent = teacherName;
+        document.getElementById("collegeLabel").textContent = `College: ${selectedCollege}`;
+        document.getElementById("collegeLogo").src = collegeLogo;
+        document.getElementById("dashboardLink").href = `teacher.html?college=${encodeURIComponent(selectedCollege)}`;
+        document.getElementById("studentsLink").href = `teacher-students.html?college=${encodeURIComponent(selectedCollege)}`;
+        document.getElementById("assignmentsLink").href = `teacher-assignments.html?college=${encodeURIComponent(selectedCollege)}`;
+        document.getElementById("teacherParentLink").href = `teacherparent.html?college=${encodeURIComponent(selectedCollege)}`;
+        document.getElementById("teacherDetailsLink").href = `teacherdetails.html?college=${encodeURIComponent(selectedCollege)}`;
+        document.getElementById("totalStudents").textContent = totalStudents;
+        document.getElementById("avgAttendance").textContent = `${avgAttendance}%`;
+        document.getElementById("highRiskStudents").textContent = highRiskStudents;
+
+        // Fetch real student count from backend
+        (async () => {
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/students/count`);
+                const result = await response.json();
+                if (result.count !== undefined) {
+                    document.getElementById("totalStudents").textContent = result.count;
+                }
+            } catch (error) {
+                console.log("Using local student count");
+            }
+        })();
+        document.getElementById("sendTelegramAlertBtn").addEventListener("click", sendAlertToParent);
+        loadStudentsForAlertForm();
+
+        renderChart(classPerformance, weekLabels);
+        renderRiskRows(studentRiskData);
+    </script>
+</body>
+</html>
