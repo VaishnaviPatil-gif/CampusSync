@@ -1,0 +1,132 @@
+/* ==========================================================================
+   TeacherDashboard.module.css
+   Full style extraction from teacher.html.
+   ========================================================================== */
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.panelHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.panelHead h5 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.panelHead p {
+  font-size: 12px;
+  color: var(--sd-text-muted, #4b7a63);
+  margin: 0;
+}
+
+.chartWrap {
+  border: 1px solid var(--line, #d7efdf);
+  border-radius: 12px;
+  background: linear-gradient(180deg, #ffffff, var(--chip-bg, #effaf2));
+  padding: 10px;
+}
+
+.bars {
+  height: 220px;
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  padding: 10px 8px;
+  border-bottom: 2px solid var(--chip-border, #96d6ae);
+}
+
+.bar {
+  flex: 1;
+  min-width: 16px;
+  border-radius: 8px 8px 0 0;
+  background: linear-gradient(180deg, var(--bar-a, #4ade80), var(--bar-b, #16a34a));
+  position: relative;
+  box-shadow: 0 8px 20px rgba(18, 75, 46, 0.24);
+}
+
+.bar span {
+  position: absolute;
+  top: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px;
+  color: var(--chip-text, #14532d);
+  font-weight: 600;
+}
+
+.labels {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.labels p {
+  flex: 1;
+  text-align: center;
+  font-size: 11px;
+  color: var(--sd-text-muted, #4b7a63);
+  margin: 0;
+}
+
+.telegramFormGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.telegramField {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.telegramField label {
+  font-size: 12px;
+  color: var(--sd-text-main, #124b2e);
+  font-weight: 600;
+}
+
+.telegramField input,
+.telegramField select {
+  border: 1px solid var(--line, #d7efdf);
+  border-radius: 10px;
+  padding: 9px 10px;
+  font-family: inherit;
+  font-size: 13px;
+  background: #f8fdf9;
+  color: var(--sd-text-main, #124b2e);
+  outline: none;
+}
+
+.telegramActions {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.telegramStatus {
+  font-size: 12px;
+  color: var(--sd-text-muted, #4b7a63);
+}
+
+@media (max-width: 980px) {
+  .metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .telegramFormGrid {
+    grid-template-columns: 1fr;
+  }
+}

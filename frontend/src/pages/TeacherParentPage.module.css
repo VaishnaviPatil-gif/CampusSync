@@ -1,0 +1,115 @@
+.formPanel {
+  background: #ffffff;
+  border: 1px solid var(--td-line, #d7efdf);
+  border-radius: 16px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.14);
+  padding: 14px;
+  margin-bottom: 20px;
+}
+
+.messageForm {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+  align-items: end;
+}
+
+.field {
+  border: 1px solid var(--td-line, #d7efdf);
+  border-radius: 12px;
+  background: #fff;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--sd-text-main, #124b2e);
+}
+
+.field input,
+.field select,
+.field textarea {
+  border: 1px solid var(--td-chip-border, #96d6ae);
+  border-radius: 10px;
+  background: var(--td-chip-bg, #effaf2);
+  color: var(--td-chip-text, #14532d);
+  padding: 9px 10px;
+  font-size: 13px;
+  font-family: inherit;
+}
+
+.field textarea {
+  min-height: 70px;
+  resize: vertical;
+}
+
+.btn {
+  border: 1px solid var(--td-chip-border, #96d6ae);
+  border-radius: 10px;
+  padding: 10px 14px;
+  background: linear-gradient(135deg, var(--sd-sidebar-1), var(--sd-sidebar-2));
+  color: #fff;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  min-height: 42px;
+  align-self: end;
+}
+
+.btn:hover {
+  opacity: 0.95;
+}
+
+.historyPanel {
+  background: #ffffff;
+  border: 1px solid var(--td-line, #d7efdf);
+  border-radius: 16px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.14);
+  padding: 12px;
+  overflow: hidden;
+}
+
+.tableWrap {
+  overflow: auto;
+}
+
+.historyTable {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 780px;
+}
+
+.historyTable th,
+.historyTable td {
+  padding: 10px 8px;
+  border-bottom: 1px solid #e7f3eb;
+  text-align: left;
+  font-size: 13px;
+}
+
+.historyTable th {
+  background: var(--td-chip-bg, #effaf2);
+  color: var(--sd-text-main, #124b2e);
+  font-size: 12px;
+}
+
+.tag {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  border: 1px solid var(--td-chip-border, #96d6ae);
+  background: var(--td-chip-bg, #effaf2);
+  color: var(--td-chip-text, #14532d);
+}
+
+@media (max-width: 920px) {
+  .messageForm {
+    grid-template-columns: 1fr;
+  }
+}

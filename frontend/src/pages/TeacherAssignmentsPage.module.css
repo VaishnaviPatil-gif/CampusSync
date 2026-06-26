@@ -1,0 +1,175 @@
+.pill {
+  border: 1px solid var(--td-chip-border, #96d6ae);
+  background: var(--td-chip-bg, #effaf2);
+  color: var(--td-chip-text, #14532d);
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.formPanel {
+  background: #ffffff;
+  border: 1px solid var(--td-line, #d7efdf);
+  border-radius: 16px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.14);
+  padding: 14px;
+  margin-bottom: 20px;
+}
+
+.assignmentForm {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 10px;
+  align-items: stretch;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px;
+  border: 1px solid var(--td-line, #d7efdf);
+  border-radius: 12px;
+  background: #ffffff;
+  min-height: 120px;
+  justify-content: flex-start;
+}
+
+.field label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--sd-text-main, #124b2e);
+}
+
+.field select,
+.field input {
+  border: 1px solid var(--td-chip-border, #96d6ae);
+  background: var(--td-chip-bg, #effaf2);
+  color: var(--td-chip-text, #14532d);
+  border-radius: 10px;
+  padding: 9px 10px;
+  font-family: inherit;
+  font-size: 13px;
+}
+
+.field input[readonly] {
+  cursor: default;
+  caret-color: transparent;
+  user-select: none;
+}
+
+.field textarea {
+  border: 1px solid var(--td-chip-border, #96d6ae);
+  background: var(--td-chip-bg, #effaf2);
+  color: var(--td-chip-text, #14532d);
+  border-radius: 10px;
+  padding: 9px 10px;
+  font-family: inherit;
+  font-size: 13px;
+  min-height: 42px;
+  max-height: 42px;
+  resize: none;
+}
+
+.btn {
+  border: 1px solid var(--td-chip-border, #96d6ae);
+  background: linear-gradient(135deg, var(--sd-sidebar-1), var(--sd-sidebar-2));
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 700;
+  font-family: inherit;
+  min-height: 42px;
+  align-self: center;
+}
+
+.btn:hover {
+  opacity: 0.95;
+}
+
+.tablePanel {
+  background: #ffffff;
+  border: 1px solid var(--td-line, #d7efdf);
+  border-radius: 16px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.14);
+  padding: 12px;
+  overflow: hidden;
+}
+
+.tableWrap {
+  overflow: auto;
+}
+
+.assignmentTable {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 760px;
+}
+
+.assignmentTable th,
+.assignmentTable td {
+  padding: 10px 8px;
+  border-bottom: 1px solid #e7f3eb;
+  text-align: left;
+  font-size: 13px;
+}
+
+.assignmentTable th {
+  background: var(--td-chip-bg, #effaf2);
+  color: var(--sd-text-main, #124b2e);
+  font-size: 12px;
+}
+
+.actions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.actionBtn {
+  border: 1px solid var(--td-chip-border, #96d6ae);
+  background: var(--td-chip-bg, #effaf2);
+  color: var(--td-chip-text, #14532d);
+  border-radius: 8px;
+  padding: 4px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.actionBtnDelete {
+  border-color: #f4b2b2;
+  color: #b91c1c;
+  background: #fff1f1;
+}
+
+.status {
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.statusPending {
+  color: var(--sd-text-muted, #4b7a63);
+}
+
+.statusOverdue {
+  color: #dc2626;
+}
+
+.statusUpcoming {
+  color: #16a34a;
+}
+
+@media (max-width: 1200px) {
+  .assignmentForm {
+    grid-template-columns: repeat(2, minmax(190px, 1fr));
+  }
+}
+
+@media (max-width: 680px) {
+  .assignmentForm {
+    grid-template-columns: 1fr;
+  }
+}
