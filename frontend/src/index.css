@@ -1,0 +1,138 @@
+/* ==========================================================================
+   CampusSync — Global Design System
+   Extracted from the existing HTML pages to serve as the single source
+   of truth for all CSS tokens and base styles across the React app.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Google Fonts
+   Matching the fonts used in the original HTML pages.
+   - Inter     : body text (landing page)
+   - Poppins   : dashboard body text
+   - Space Grotesk : display headings
+   -------------------------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap');
+
+/* --------------------------------------------------------------------------
+   2. Design Tokens
+   -------------------------------------------------------------------------- */
+:root {
+  /* --- Landing / Auth theme (dark, space-inspired) --- */
+  --landing-bg-1: #0a0e27;
+  --landing-bg-2: #0f1535;
+  --landing-bg-3: #141d3f;
+  --landing-text-main: #e8ecf1;
+  --landing-text-muted: #a8b5c8;
+  --landing-cyan: #00d9ff;
+  --landing-blue: #0066ff;
+  --landing-amber: #ff9500;
+  --landing-glass: rgba(15, 21, 53, 0.85);
+  --landing-glass-border: rgba(0, 217, 255, 0.2);
+  --landing-danger: #ff4444;
+
+  /* --- Dashboard theme (green, light) --- */
+  --dash-bg-a: #56ab2f;
+  --dash-bg-b: #a8e063;
+  --dash-sidebar-1: #2f8f46;
+  --dash-sidebar-2: #89d36c;
+  --dash-text-main: #124b2e;
+  --dash-text-muted: #4b7a63;
+  --dash-surface: #ffffff;
+  --dash-line: #d7efdf;
+  --dash-chip-border: #96d6ae;
+  --dash-chip-bg: #effaf2;
+  --dash-chip-text: #14532d;
+  --dash-good: #16a34a;
+  --dash-warn: #f59e0b;
+  --dash-risk: #dc2626;
+  --dash-shadow: rgba(15, 23, 42, 0.14);
+  --dash-card-shadow: rgba(32, 86, 56, 0.12);
+
+  /* --- Semantic aliases (used by components) --- */
+  --color-success: #32d583;
+  --color-warning: #fbbf24;
+  --color-danger: #ff6b6b;
+
+  /* --- Typography --- */
+  --font-body: 'Inter', sans-serif;
+  --font-dashboard: 'Poppins', sans-serif;
+  --font-display: 'Space Grotesk', sans-serif;
+
+  /* --- Spacing scale --- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+  /* --- Border radius --- */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  /* --- Transitions --- */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 400ms ease;
+}
+
+/* --------------------------------------------------------------------------
+   3. Reset
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+/* --------------------------------------------------------------------------
+   4. React root
+   -------------------------------------------------------------------------- */
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
