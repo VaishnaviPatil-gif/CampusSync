@@ -1,0 +1,82 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f4fbf6 0%, #ffffff 100%);
+  padding: 24px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.card {
+  background: #ffffff;
+  border: 1px solid #d7efdf;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(32, 86, 56, 0.08);
+  max-width: 480px;
+  width: 100%;
+  padding: 40px;
+  text-align: center;
+}
+
+.icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.title {
+  font-size: 22px;
+  color: #124b2e;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #4b7a63;
+  margin-bottom: 24px;
+}
+
+.details {
+  text-align: left;
+  background: #f8fdf9;
+  border: 1px solid #d7efdf;
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 24px;
+}
+
+.detailsSummary {
+  font-size: 13px;
+  color: #124b2e;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.errorText {
+  font-family: monospace;
+  font-size: 11px;
+  color: #c93b3b;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  margin-top: 10px;
+  max-height: 150px;
+}
+
+.reloadBtn {
+  font-family: inherit;
+  border: 1px solid #96d6ae;
+  background: #effaf2;
+  color: #14532d;
+  border-radius: 10px;
+  padding: 11px 20px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.2s;
+}
+
+.reloadBtn:hover {
+  background: #e3f7ea;
+}

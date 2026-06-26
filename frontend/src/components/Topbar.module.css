@@ -1,0 +1,71 @@
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: var(--sd-surface, #ffffff);
+  border: 1px solid var(--line, #cdebd8);
+  border-radius: 16px;
+  padding: 14px 16px;
+  box-shadow: 0 10px 24px var(--sd-card-shadow, rgba(32, 86, 56, 0.12));
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--sd-text-main, #124b2e);
+  margin: 0;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: var(--sd-text-muted, #4b7a63);
+  margin: 4px 0 0 0;
+}
+
+.topActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.iconBtn {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  border: 1px solid var(--sd-sidebar-1, #2f8f46);
+  background: rgba(47, 143, 70, 0.1);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 2px solid var(--sd-sidebar-1, #2f8f46);
+  background: linear-gradient(
+    135deg,
+    rgba(47, 143, 70, 0.15),
+    rgba(137, 211, 108, 0.15)
+  );
+  color: var(--sd-text-main, #124b2e);
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  font-size: 16px;
+}
+
+.chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 680px) {
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
