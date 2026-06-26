@@ -1,79 +1,116 @@
 # CampusSync
 
-CampusSync is a full-stack student management and academic collaboration platform designed to improve communication between students, teachers, and parents through attendance tracking, assignments, mood monitoring, dashboards, and Telegram-based notifications.
+CampusSync is a modern full-stack student management and academic collaboration platform that streamlines communication between students, teachers, and parents. The platform combines real-time academic insights, attendance tracking, wellness monitoring, assignment management, and Telegram notifications through a scalable React + TypeScript frontend and Python/Node.js backend.
 
 ---
 
-## Features
+# Features
 
-### Student Dashboard
+## Student Portal
 
-* Attendance tracking
-* Mood monitoring
-* Daily journal system
-* Exercises and activities
+* Interactive student dashboard
+* Attendance analytics and attendance calculator
+* Mood tracking and wellness monitoring
+* AI-powered journal (SARTHI AI Support)
+* Daily exercises and activities
+* Assignment tracking
+* Academic performance insights
+* Live IoT sensor dashboard
+* Personalized recommendations
+
+---
+
+## Teacher Portal
+
+* Teacher dashboard
+* Student management
+* Assignment creation and management
+* Student performance analytics
+* Parent communication center
+* Student profile viewer
+* Attendance monitoring
 * Academic insights
 
-### Teacher Dashboard
+---
 
-* Student management
-* Assignment tracking
-* Attendance control
-* Parent communication
-* Student performance monitoring
+## Parent Portal
 
-### Parent Portal
-
-* Student activity overview
-* Attendance visibility
-* Performance updates
-* Communication support
-
-### Telegram Integration
-
-* Automated alerts
-* Notifications
-* Parent-teacher updates
-* Important reminders
-
-### Authentication System
-
-* Secure login system
-* User role separation
-* Session handling
-* Authentication workflows
+* Child performance dashboard
+* Attendance monitoring
+* Assignment overview
+* Wellness updates
+* Communication with teachers
+* Telegram notifications
 
 ---
 
-## Tech Stack
+## Smart Notifications
 
-### Frontend
+* Telegram Bot integration
+* Attendance alerts
+* Assignment reminders
+* Parent notifications
+* Student updates
 
-* HTML
-* CSS
-* JavaScript
+---
 
-### Backend
+## Authentication
 
-* Flask (Python)
-* Node.js
+* Role-based login
+* Student authentication
+* Teacher authentication
+* Parent authentication
+* Session persistence using Local Storage
+
+---
+
+# Tech Stack
+
+## Frontend
+
+* React 18
+* TypeScript
+* Vite
+* React Router DOM
+* TanStack React Query
+* CSS Modules
+* Context API
+
+---
+
+## Backend
+
+### Python
+
+* Flask
+* SQLite
+
+### Node.js
+
 * Express.js
+* Telegram Bot API
 
-### Database
+---
+
+## Database
 
 * SQLite
 
-### Tools and Integrations
+---
 
-* Telegram Bot API
+## Development Tools
+
 * Git
 * GitHub
+* ESLint
+* Prettier
+* npm
 
 ---
 
-## Project Structure
+# 📂 Project Structure
 
-```bash
+```text
 CampusSync/
 │
 ├── backend/
@@ -88,73 +125,169 @@ CampusSync/
 │   ├── assets/
 │   │   └── images/
 │   │
-│   ├── pages/
-│   │   ├── attendance.html
-│   │   ├── exercises.html
-│   │   ├── journal.html
-│   │   ├── mood.html
-│   │   ├── parent.html
-│   │   ├── student.html
-│   │   ├── teacher.html
-│   │   └── additional pages
+│   ├── src/
+│   │   ├── components/
+│   │   ├── hooks/
+│   │   ├── layouts/
+│   │   ├── pages/
+│   │   ├── services/
+│   │   ├── types/
+│   │   ├── utils/
+│   │   ├── App.tsx
+│   │   ├── main.tsx
+│   │   └── index.css
 │   │
+│   ├── package.json
+│   ├── vite.config.ts
+│   ├── tsconfig.json
+│   ├── tsconfig.app.json
+│   ├── tsconfig.node.json
 │   └── index.html
 │
 ├── PROJECT_ARCHITECTURE.md
 ├── README.md
-├── .gitignore
-└── LICENSE
+├── LICENSE
+└── .gitignore
 ```
 
 ---
 
-## System Workflow
+# ⚙️ System Workflow
 
-1. Users log into the platform.
-2. Frontend pages send requests to backend APIs.
-3. Backend services validate and process requests.
-4. Database stores and retrieves application data.
-5. Telegram services send notifications and alerts.
-6. Dashboards update dynamically based on user activity.
+```text
+User Login
+      │
+      ▼
+React + TypeScript Frontend
+      │
+      ▼
+React Router Navigation
+      │
+      ▼
+REST API Calls
+      │
+      ├────────► Flask Backend
+      │               │
+      │               ▼
+      │           SQLite Database
+      │
+      └────────► Express Backend
+                      │
+                      ▼
+              Telegram Bot Service
+```
 
 ---
 
-## Core Modules
+# Core Modules
 
-* Student Management
-* Attendance System
-* Assignment Tracking
-* Mood Monitoring
+### Student Module
+
+* Dashboard
+* Attendance
+* Mood Tracker
+* Journal
+* Exercises
+* Assignments
+
+### Teacher Module
+
+* Dashboard
+* Students
+* Assignments
 * Parent Communication
-* Telegram Notifications
-* Authentication and Role Management
+* Teacher Profile
+
+### Parent Module
+
+* Dashboard
+* Child Progress
+* Attendance
+* Notifications
+
+### Shared Modules
+
+* Authentication
+* Theme Management
+* Notifications
+* API Services
+* Error Handling
+* Toast Messages
 
 ---
 
-## Architecture
+#  Key Features
 
-Detailed project architecture and workflow documentation is available in:
+* React + TypeScript architecture
+* Modular component design
+* CSS Modules styling
+* Lazy-loaded routes
+* Error Boundary support
+* Toast notification system
+* React Query data fetching
+* Responsive dashboards
+* Reusable layouts
+* Type-safe API layer
+* Production-ready project structure
+
+---
+
+# Getting Started
+
+## Backend
 
 ```bash
-PROJECT_ARCHITECTURE.md
+cd backend
+pip install -r requirements.txt
+npm install
+```
+
+Start Flask
+
+```bash
+python app.py
+```
+
+Start Express
+
+```bash
+node server.js
 ```
 
 ---
 
-## Developed By
+## Frontend
 
-Vaishnavi Patil
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
-GitHub:
-https://github.com/VaishnaviPatil-gif
+Production Build
+
+```bash
+npm run build
+```
 
 ---
 
-## Future Improvements
+# Future Enhancements
 
-* Real-time notifications
-* AI-based student analytics
+* AI-powered student performance prediction
 * Cloud database integration
-* Enhanced role-based access control
-* Improved mobile responsiveness
-* Dedicated admin dashboard
+* Real-time WebSocket updates
+* Push notifications
+* Mobile application
+* Admin dashboard
+* Role-based permissions
+* Analytics dashboard
+* Report generation
+* Docker deployment
+
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License.
