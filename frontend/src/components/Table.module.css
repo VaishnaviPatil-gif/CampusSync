@@ -1,0 +1,25 @@
+.tableWrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  border-bottom: 1px solid var(--line, #e2f2e7);
+  padding: 10px 8px;
+  text-align: left;
+  font-size: 13px;
+  color: var(--sd-text-main, #124b2e);
+}
+
+.table th {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--sd-text-main, #124b2e);
+  background: var(--td-chip-bg, var(--chip-bg, #f4fbf6));
+}

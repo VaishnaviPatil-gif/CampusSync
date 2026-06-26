@@ -1,0 +1,10 @@
+.emptyState {
+  padding: 24px;
+  text-align: center;
+  color: var(--sd-text-muted, #4b7a63);
+  font-size: 14px;
+  background: var(--sd-surface, #ffffff);
+  border: 1px dashed var(--line, #d7efdf);
+  border-radius: 12px;
+  width: 100%;
+}
