@@ -1,0 +1,171 @@
+.readOnlyNotice {
+  background: #e3f2fd;
+  border: 1px solid #90caf9;
+  color: #1565c0;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+.filters {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.filterBtn {
+  padding: 8px 14px;
+  border: 1px solid #cdebd8;
+  background: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--sd-text-main, #124b2e);
+  transition: all 0.3s ease;
+}
+
+.filterBtn:hover {
+  background: #f0f7f3;
+  border-color: var(--sd-sidebar-1);
+}
+
+.filterBtnActive {
+  background: var(--sd-sidebar-1);
+  color: white;
+  border-color: var(--sd-sidebar-1);
+}
+
+.filterBtnActive:hover {
+  background: var(--sd-sidebar-1);
+  color: white;
+  border-color: var(--sd-sidebar-1);
+}
+
+.assignmentsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+.assignmentCard {
+  background: white;
+  border: 1px solid #cdebd8;
+  border-left: 4px solid var(--sd-sidebar-1);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(32, 86, 56, 0.12);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.assignmentCard:hover {
+  box-shadow: 0 6px 16px rgba(32, 86, 56, 0.12);
+  transform: translateY(-2px);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.subjectBadge {
+  display: inline-block;
+  padding: 6px 12px;
+  background: linear-gradient(135deg, var(--sd-sidebar-1), var(--sd-sidebar-2));
+  color: white;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.statusBadge {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  display: inline-block;
+}
+
+.statusBadgePending {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.statusBadgeCompleted {
+  background: #d4edda;
+  color: #155724;
+}
+
+.taskTitle {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--sd-text-main, #124b2e);
+  margin: 6px 0;
+  line-height: 1.4;
+}
+
+.taskDescription {
+  font-size: 13px;
+  color: var(--sd-text-muted, #4b7a63);
+  line-height: 1.5;
+}
+
+.dueDate {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--sd-text-muted, #4b7a63);
+  font-weight: 500;
+  padding: 8px 0;
+  border-top: 1px solid #e8f4ed;
+  border-bottom: 1px solid #e8f4ed;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 40px 20px;
+  grid-column: 1 / -1;
+  color: var(--sd-text-muted, #4b7a63);
+}
+
+.emptyIcon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.emptyTitle {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--sd-text-main, #124b2e);
+  margin-bottom: 8px;
+}
+
+.emptyText {
+  font-size: 14px;
+  color: var(--sd-text-muted, #4b7a63);
+}
+
+@media (max-width: 1200px) {
+  .assignmentsGrid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+}
+
+@media (max-width: 820px) {
+  .assignmentsGrid {
+    grid-template-columns: 1fr;
+  }
+}

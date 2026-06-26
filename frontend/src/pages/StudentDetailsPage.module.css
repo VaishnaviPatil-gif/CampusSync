@@ -1,0 +1,126 @@
+.summaryGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(160px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.summaryCard {
+  background: #ffffff;
+  border: 1px solid var(--sd-border, #d7efdf);
+  border-radius: 14px;
+  padding: 14px;
+  box-shadow: 0 10px 24px rgba(32, 86, 56, 0.12);
+}
+
+.summaryCard p {
+  font-size: 12px;
+  color: var(--sd-text-muted, #4b7a63);
+}
+
+.summaryCard h4 {
+  margin-top: 8px;
+  font-size: 24px;
+  color: var(--sd-text-main, #124b2e);
+  line-height: 1.2;
+  font-weight: 600;
+}
+
+.summaryCard small {
+  font-size: 12px;
+  color: var(--sd-text-muted, #4b7a63);
+}
+
+.detailsPanel {
+  background: #ffffff;
+  border: 1px solid var(--sd-border, #d7efdf);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 10px 24px rgba(32, 86, 56, 0.12);
+}
+
+.detailsHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.detailsHead h4 {
+  font-size: 18px;
+  color: var(--sd-text-main, #124b2e);
+}
+
+.riskBadge {
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 999px;
+  padding: 6px 10px;
+  border: 1px solid transparent;
+}
+
+.riskLow {
+  color: #14532d;
+  background: #dcfce7;
+  border-color: #86efac;
+}
+
+.riskMedium {
+  color: #92400e;
+  background: #fef3c7;
+  border-color: #fcd34d;
+}
+
+.riskHigh {
+  color: #7f1d1d;
+  background: #fee2e2;
+  border-color: #fca5a5;
+}
+
+.detailsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(170px, 1fr));
+  gap: 12px;
+}
+
+.field {
+  background: #f6fcf8;
+  border: 1px solid #e2f2e7;
+  border-radius: 12px;
+  padding: 11px;
+}
+
+.field p {
+  font-size: 12px;
+  color: var(--sd-text-muted, #4b7a63);
+}
+
+.field h5 {
+  margin-top: 5px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--sd-text-main, #124b2e);
+  word-break: break-word;
+}
+
+@media (max-width: 1180px) {
+  .summaryGrid {
+    grid-template-columns: repeat(2, minmax(170px, 1fr));
+  }
+
+  .detailsGrid {
+    grid-template-columns: repeat(2, minmax(170px, 1fr));
+  }
+}
+
+@media (max-width: 680px) {
+  .summaryGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .detailsGrid {
+    grid-template-columns: 1fr;
+  }
+}
