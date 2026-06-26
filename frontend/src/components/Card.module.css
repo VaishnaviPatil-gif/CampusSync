@@ -1,0 +1,14 @@
+.card {
+  background: var(--sd-surface, #ffffff);
+  border: 1px solid var(--line, #d7efdf);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 10px 24px var(--sd-card-shadow, rgba(32, 86, 56, 0.12));
+}
+
+.title {
+  font-size: 16px;
+  margin-bottom: 14px;
+  color: var(--sd-text-main, #124b2e);
+  font-weight: 600;
+}

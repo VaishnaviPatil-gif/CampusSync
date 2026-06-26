@@ -1,0 +1,32 @@
+.btn {
+  font-family: inherit;
+  border-radius: 10px;
+  padding: 9px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.primary {
+  border: 1px solid var(--td-chip-border, var(--chip-border, #96d6ae));
+  color: var(--td-chip-text, var(--chip-text, #14532d));
+  background: var(--td-chip-bg, var(--chip-bg, #effaf2));
+}
+
+.primary:hover {
+  background: rgba(150, 214, 174, 0.25);
+}
+
+.secondary {
+  border: 1px solid #cbd5e1;
+  color: #334155;
+  background: #ffffff;
+}
+
+.secondary:hover {
+  background: #f8fafc;
+}

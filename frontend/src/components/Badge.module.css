@@ -1,0 +1,52 @@
+.badge {
+  display: inline-block;
+  text-align: center;
+  border-radius: 999px;
+  padding: 4px 8px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* Solid Badges (Teacher Dashboard style) */
+.low {
+  min-width: 68px;
+  color: #ffffff;
+  background: var(--good, #16a34a);
+}
+
+.medium {
+  min-width: 68px;
+  color: #ffffff;
+  background: var(--warn, #f59e0b);
+}
+
+.high {
+  min-width: 68px;
+  color: #ffffff;
+  background: var(--risk, #dc2626);
+}
+
+/* Light / Outline Badges (Student Dashboard style) */
+.weak {
+  background: rgba(255, 107, 107, 0.22);
+  border: 1px solid rgba(255, 107, 107, 0.55);
+  color: var(--sd-text-main, #124b2e);
+}
+
+.stable {
+  background: rgba(50, 213, 131, 0.2);
+  border: 1px solid rgba(50, 213, 131, 0.5);
+  color: var(--sd-text-main, #124b2e);
+}
+
+.strong {
+  background: rgba(50, 213, 131, 0.2);
+  border: 1px solid rgba(50, 213, 131, 0.5);
+  color: var(--sd-text-main, #124b2e);
+}
+
+.good {
+  background: rgba(50, 213, 131, 0.2);
+  border: 1px solid rgba(50, 213, 131, 0.5);
+  color: var(--sd-text-main, #124b2e);
+}

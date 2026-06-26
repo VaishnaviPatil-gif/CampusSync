@@ -1,0 +1,32 @@
+.statCard {
+  background: var(--sd-surface, #ffffff);
+  border: 1px solid var(--line, #d7efdf);
+  border-radius: 14px;
+  padding: 14px;
+  box-shadow: 0 10px 24px var(--sd-card-shadow, rgba(32, 86, 56, 0.12));
+}
+
+.label {
+  font-size: 12px;
+  color: var(--sd-text-muted, #4b7a63);
+  margin: 0;
+}
+
+.value {
+  margin: 8px 0 0 0;
+  font-size: 24px;
+  color: var(--sd-text-main, #124b2e);
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.valueLarge {
+  font-size: 28px;
+}
+
+.sub {
+  display: block;
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--sd-text-muted, #4b7a63);
+}
