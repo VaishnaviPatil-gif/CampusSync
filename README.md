@@ -1,155 +1,90 @@
 # CampusSync
 
-> **A modern full-stack student management and academic collaboration platform that connects Students, Teachers, and Parents through smart dashboards, attendance tracking, wellness monitoring, IoT integration, and Telegram notifications.**
+A full-stack academic management platform connecting **Students**, **Teachers**, and **Parents** through role-based dashboards, attendance tracking, mood monitoring, IoT sensor integration, and Telegram notifications.
 
-![React](https://img.shields.io/badge/React-18-61DAFB?logo=react)
-![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript)
-![Flask](https://img.shields.io/badge/Flask-Python-000000?logo=flask)
-![Express](https://img.shields.io/badge/Express.js-Node.js-000000?logo=express)
-![SQLite](https://img.shields.io/badge/Database-SQLite-003B57?logo=sqlite)
-![License](https://img.shields.io/badge/License-MIT-yellow)
+![Tech Stack](https://img.shields.io/badge/React-18-blue?logo=react) ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript) ![Flask](https://img.shields.io/badge/Flask-Python-green?logo=flask) ![Express](https://img.shields.io/badge/Express-Node.js-green?logo=express) ![SQLite](https://img.shields.io/badge/Database-SQLite-orange?logo=sqlite) ![License](https://img.shields.io/badge/License-MIT-yellow)
 
 ---
 
-# 📖 Overview
+## Overview
 
-CampusSync is a **full-stack web application** built to simplify academic management and communication within educational institutions.
+CampusSync simplifies communication and academic management within educational institutions. Students track attendance and mood, teachers manage assignments and monitor performance, and parents stay informed — all from one unified platform.
 
-The platform enables **Students**, **Teachers**, and **Parents** to interact through dedicated dashboards while providing attendance tracking, assignment management, mood monitoring, AI-assisted wellness support, IoT sensor integration, and Telegram notifications.
+Built with a **React + TypeScript** frontend, dual backend services (**Flask** for auth and data, **Express** for Telegram and IoT), and a shared **SQLite** database (designed for easy migration to PostgreSQL).
 
-The project follows a **modern React + TypeScript frontend** with **Flask** and **Express.js** backend services backed by a shared **SQLite** database.
-----
-
-#  Features
-
-## Student Portal
-
-* Interactive Student Dashboard
-* Attendance analytics
-* Attendance percentage calculator
-* Assignment tracking
-* Academic performance insights
-* Mood tracking
-* Wellness monitoring
-* AI-powered Journal (SARTHI AI Support)
-* Daily exercises & activities
-* Live IoT sensor monitoring
-* Personalized recommendations
+> **Status:** Active development · Demo deployment coming soon
 
 ---
 
-##  Teacher Portal
+## Screenshots
 
-* Teacher Dashboard
-* Student management
-* Student performance analytics
-* Attendance monitoring
-* Assignment creation & management
-* Parent communication center
-* Student profile viewer
-* Classroom insights
+> _Screenshots and live demo link will be added on first deployment._
 
 ---
 
-##  Parent Portal
+## Features
 
-* Child performance dashboard
-* Attendance monitoring
-* Assignment overview
-* Wellness updates
-* Communication with teachers
-* Telegram notifications
+### Student Portal
+- Attendance analytics with percentage calculator
+- Assignment tracking and performance insights
+- Daily mood tracker and wellness monitoring
+- AI-powered journaling (SARTHI AI Support)
+- Daily exercises and activity suggestions
+- Live IoT sensor monitoring dashboard
 
----
+### Teacher Portal
+- Student management and performance analytics
+- Assignment creation, editing, and deletion
+- Attendance monitoring per class
+- Parent communication center
 
-## 🤖 Smart Features
+### Parent Portal
+- Child's academic performance overview
+- Attendance and assignment visibility
+- Wellness updates
+- Telegram-based notifications
 
-* Telegram Bot Integration
-* Attendance Alerts
-* Assignment Reminders
-* Parent Notifications
-* Student Activity Updates
-* Live IoT Sensor Monitoring
-* AI Wellness Assistant
-
----
-
-##  Authentication
-
-* Role-based Login
-* Student Authentication
-* Teacher Authentication
-* Parent Authentication
-* Local Storage Session Persistence
-* JWT Authentication (Backend)
-* Role-Based Access Control (RBAC)
+### Platform-Wide
+- Role-based login (Student / Teacher / Parent)
+- JWT authentication with bcrypt password hashing
+- Telegram bot for alerts and reminders
+- IoT sensor data ingestion and history
+- Toast notification system and error boundaries
 
 ---
 
-# 🛠 Tech Stack
+## Tech Stack
 
-## Frontend
-
-* React 18
-* TypeScript
-* Vite
-* React Router DOM
-* TanStack React Query
-* CSS Modules
-* Context API
-
----
-
-## Backend
-
-### Python
-
-* Flask
-* SQLite
-
-### Node.js
-
-* Express.js
-* Telegram Bot API
+| Layer | Technology |
+|---|---|
+| Frontend | React 18, TypeScript, Vite, React Router DOM |
+| State / Data | TanStack React Query, Context API |
+| Styling | CSS Modules |
+| Backend (Auth & DB) | Python, Flask, SQLite |
+| Backend (Services) | Node.js, Express.js |
+| Notifications | Telegram Bot API |
+| Security | JWT, bcrypt, Helmet, Express Rate Limiting |
+| Dev Tools | ESLint, Prettier, Git |
 
 ---
 
-## Database
+## Project Structure
 
-* SQLite
-
----
-
-## Development Tools
-
-* Git
-* GitHub
-* npm
-* ESLint
-* Prettier
-
----
-
-# 📂 Project Structure
-
-```text
+```
 CampusSync/
-│
 ├── backend/
 │   ├── database/
 │   ├── express/
 │   ├── flask/
 │   ├── shared/
-│   ├── app.py
-│   ├── server.js
+│   ├── app.py              # Flask entry point
+│   ├── server.js           # Express entry point
 │   ├── telegramService.js
 │   ├── package.json
 │   └── requirements.txt
 │
 ├── frontend/
-│   ├── assets/
 │   ├── src/
-│   │   ├── assets/
 │   │   ├── components/
 │   │   ├── hooks/
 │   │   ├── layouts/
@@ -158,280 +93,169 @@ CampusSync/
 │   │   ├── types/
 │   │   ├── utils/
 │   │   ├── App.tsx
-│   │   ├── main.tsx
-│   │   └── index.css
-│   │
+│   │   └── main.tsx
 │   ├── package.json
-│   ├── vite.config.ts
-│   ├── tsconfig.json
-│   ├── index.html
-│   └── ...
+│   └── vite.config.ts
 │
 ├── PROJECT_ARCHITECTURE.md
 ├── README.md
-├── LICENSE
-└── .gitignore
+└── LICENSE
 ```
 
 ---
 
-# System Architecture
+## System Architecture
 
-```text
-                  ┌─────────────────────┐
-                  │     React + Vite    │
-                  │   TypeScript Client │
-                  └──────────┬──────────┘
-                             │
-                    REST API Requests
-                             │
-          ┌──────────────────┴──────────────────┐
-          │                                     │
-          ▼                                     ▼
-  Flask Backend                         Express Backend
-(Authentication, DB)              (Telegram & IoT Services)
-          │                                     │
-          └──────────────────┬──────────────────┘
-                             ▼
-                       SQLite Database
-                             │
-                             ▼
-                     Telegram Bot Service
+```
+          ┌─────────────────────┐
+          │   React + Vite      │
+          │  TypeScript Client  │
+          └──────────┬──────────┘
+                     │ REST API
+         ┌───────────┴───────────┐
+         ▼                       ▼
+  Flask Backend           Express Backend
+(Auth, DB, RBAC)     (Telegram, IoT Services)
+         │                       │
+         └───────────┬───────────┘
+                     ▼
+               SQLite Database
+                     │
+                     ▼
+           Telegram Bot Service
 ```
 
 ---
 
-# Application Workflow
-
-```text
-User Login
-     │
-     ▼
-Authentication
-     │
-     ▼
-Dashboard Selection
-     │
-     ▼
-REST API Requests
-     │
-     ├────────► Flask Services
-     │
-     ├────────► Express Services
-     │
-     ▼
-SQLite Database
-     │
-     ▼
-Real-time Dashboard Updates
-     │
-     ▼
-Telegram Notifications
-```
-
----
-
-# Core Modules
-
-## Student Module
-
-* Dashboard
-* Attendance
-* Mood Tracker
-* Journal
-* Exercises
-* Assignments
-
----
-
-## Teacher Module
-
-* Dashboard
-* Students
-* Assignments
-* Parent Communication
-* Teacher Profile
-
----
-
-## Parent Module
-
-* Dashboard
-* Child Progress
-* Attendance
-* Notifications
-
----
-
-## Shared Modules
-
-* Authentication
-* Theme Management
-* API Services
-* Notifications
-* Error Handling
-* Toast Messages
-
----
-
-# Security
-
-* JWT Authentication
-* Password Hashing (bcrypt)
-* Role-Based Access Control (RBAC)
-* Helmet Security Headers
-* Express Rate Limiting
-* Secure REST APIs
-* Session Management
-
----
-
-# REST API Overview
-
-## Authentication
+## REST API Overview
 
 ```
-POST /auth/register
-POST /auth/login
-```
+# Authentication
+POST   /auth/register
+POST   /auth/login
 
-## Student
+# Student
+GET    /student/dashboard
+GET    /student/attendance
+GET    /student/mood
+POST   /student/journal
 
-```
-GET  /student/dashboard
-GET  /student/attendance
-GET  /student/mood
-POST /student/journal
-```
-
-## Teacher
-
-```
+# Teacher
 GET    /teacher/students
 POST   /teacher/assignments
 PUT    /teacher/assignments/:id
 DELETE /teacher/assignments/:id
-```
 
-## Parent
+# Parent
+GET    /parent/dashboard
 
-```
-GET /parent/dashboard
-```
+# IoT Sensors
+POST   /api/sensors
+GET    /api/sensors/latest
+GET    /api/sensors/history
 
-## Sensors
-
-```
-POST /api/sensors
-GET  /api/sensors/latest
-GET  /api/sensors/history
-```
-
-## Notifications
-
-```
-POST /alerts/send
-GET  /notifications
+# Notifications
+POST   /alerts/send
+GET    /notifications
 ```
 
 ---
 
-# Getting Started
+## Getting Started
 
-## Clone Repository
+### Prerequisites
+- Python 3.9+
+- Node.js 18+
+- npm
+
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/VaishnaviPatil-gif/CampusSync.git
-
 cd CampusSync
 ```
 
----
-
-## Backend Setup
+### 2. Backend setup
 
 ```bash
 cd backend
-
 pip install -r requirements.txt
-
 npm install
 ```
 
-### Start Flask
-
+Start the Flask server:
 ```bash
 python app.py
 ```
 
-### Start Express
-
+Start the Express server (separate terminal):
 ```bash
 node server.js
 ```
 
----
-
-## Frontend Setup
+### 3. Frontend setup
 
 ```bash
 cd frontend
-
 npm install
-
 npm run dev
 ```
 
----
+The app will be available at `http://localhost:5173`.
 
-## Production Build
+### 4. Production build
 
 ```bash
+cd frontend
 npm run build
 ```
 
 ---
 
-# Key Highlights
+## Database
 
-* Modern React + TypeScript Architecture
-* Modular Component Design
-* CSS Modules Styling
-* Lazy-loaded Routes
-* Error Boundary Support
-* Toast Notification System
-* React Query Data Fetching
-* Reusable Layouts
-* Type-safe API Layer
-* IoT Sensor Integration
-* Telegram Notifications
-* Production-ready Folder Structure
+CampusSync currently uses **SQLite** for development and demo purposes. The schema is designed to be portable — migrating to PostgreSQL requires only updating the connection string and swapping the SQLAlchemy dialect.
 
 ---
 
-# Roadmap
+## Roadmap
 
-* ✅ React + TypeScript Migration
-* ✅ Flask Backend
-* ✅ Express Backend
-* ✅ SQLite Integration
-* ✅ Telegram Notifications
-* ✅ IoT Sensor Support
-* 🔄 AI Student Performance Prediction
-* 🔄 Real-time WebSocket Updates
-* 🔄 Docker Deployment
-* 🔄 Cloud Database Integration
-* 🔄 Mobile Application
-* 🔄 Admin Dashboard
+| Status | Feature |
+|---|---|
+| ✅ | React + TypeScript frontend |
+| ✅ | Flask authentication and database layer |
+| ✅ | Express service layer |
+| ✅ | SQLite integration |
+| ✅ | Telegram bot notifications |
+| ✅ | IoT sensor support |
+| 🔄 | Deployment (Vercel + Render) |
+| 🔄 | AI student performance prediction |
+| 🔄 | Real-time WebSocket updates |
+| 🔄 | Docker containerization |
+| 🔄 | PostgreSQL migration |
+| 🔄 | Mobile application |
+| 🔄 | Admin dashboard |
 
 ---
 
-# Contributing
+## Contributing
 
 Contributions, suggestions, and improvements are welcome.
 
-1. Fork the repository.
-2. Create a feature branch.
-3. Commit your changes.
-4. Push to your branch.
-5. Open a Pull Request.
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/your-feature`)
+3. Commit your changes (`git commit -m 'Add your feature'`)
+4. Push to the branch (`git push origin feature/your-feature`)
+5. Open a Pull Request
+
+---
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+## Author
+
+**Vaishnavi Patil** · [GitHub](https://github.com/VaishnaviPatil-gif)
