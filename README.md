@@ -12,14 +12,6 @@ CampusSync simplifies communication and academic management within educational i
 
 Built with a **React + TypeScript** frontend, dual backend services (**Flask** for auth and data, **Express** for Telegram and IoT), and a shared **SQLite** database (designed for easy migration to PostgreSQL).
 
-> **Status:** Active development · Demo deployment coming soon
-
----
-
-## Screenshots
-
-> _Screenshots and live demo link will be added on first deployment._
-
 ---
 
 ## Features
@@ -123,7 +115,6 @@ CampusSync/
                      │
                      ▼
            Telegram Bot Service
-```
 
 ---
 
@@ -228,8 +219,6 @@ CampusSync currently uses **SQLite** for development and demo purposes. The sche
 | ✅ | SQLite integration |
 | ✅ | Telegram bot notifications |
 | ✅ | IoT sensor support |
-| 🔄 | Deployment (Vercel + Render) |
-| 🔄 | AI student performance prediction |
 | 🔄 | Real-time WebSocket updates |
 | 🔄 | Docker containerization |
 | 🔄 | PostgreSQL migration |
@@ -254,8 +243,3 @@ Contributions, suggestions, and improvements are welcome.
 
 This project is licensed under the [MIT License](LICENSE).
 
----
-
-## Author
-
-**Vaishnavi Patil** · [GitHub](https://github.com/VaishnaviPatil-gif)
