@@ -116,7 +116,7 @@ CampusSync/
                      ▼
            Telegram Bot Service
 
----
+```
 
 ## REST API Overview
 
