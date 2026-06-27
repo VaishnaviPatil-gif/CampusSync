@@ -1,39 +1,57 @@
 # CampusSync
 
-CampusSync is a modern full-stack student management and academic collaboration platform that streamlines communication between students, teachers, and parents. The platform combines real-time academic insights, attendance tracking, wellness monitoring, assignment management, and Telegram notifications through a scalable React + TypeScript frontend and Python/Node.js backend.
+> **A modern full-stack student management and academic collaboration platform that connects Students, Teachers, and Parents through smart dashboards, attendance tracking, wellness monitoring, IoT integration, and Telegram notifications.**
+
+![React](https://img.shields.io/badge/React-18-61DAFB?logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript)
+![Flask](https://img.shields.io/badge/Flask-Python-000000?logo=flask)
+![Express](https://img.shields.io/badge/Express.js-Node.js-000000?logo=express)
+![SQLite](https://img.shields.io/badge/Database-SQLite-003B57?logo=sqlite)
+![License](https://img.shields.io/badge/License-MIT-yellow)
 
 ---
 
-# Features
+# 📖 Overview
+
+CampusSync is a **full-stack web application** built to simplify academic management and communication within educational institutions.
+
+The platform enables **Students**, **Teachers**, and **Parents** to interact through dedicated dashboards while providing attendance tracking, assignment management, mood monitoring, AI-assisted wellness support, IoT sensor integration, and Telegram notifications.
+
+The project follows a **modern React + TypeScript frontend** with **Flask** and **Express.js** backend services backed by a shared **SQLite** database.
+----
+
+#  Features
 
 ## Student Portal
 
-* Interactive student dashboard
-* Attendance analytics and attendance calculator
-* Mood tracking and wellness monitoring
-* AI-powered journal (SARTHI AI Support)
-* Daily exercises and activities
+* Interactive Student Dashboard
+* Attendance analytics
+* Attendance percentage calculator
 * Assignment tracking
 * Academic performance insights
-* Live IoT sensor dashboard
+* Mood tracking
+* Wellness monitoring
+* AI-powered Journal (SARTHI AI Support)
+* Daily exercises & activities
+* Live IoT sensor monitoring
 * Personalized recommendations
 
 ---
 
-## Teacher Portal
+##  Teacher Portal
 
-* Teacher dashboard
+* Teacher Dashboard
 * Student management
-* Assignment creation and management
 * Student performance analytics
+* Attendance monitoring
+* Assignment creation & management
 * Parent communication center
 * Student profile viewer
-* Attendance monitoring
-* Academic insights
+* Classroom insights
 
 ---
 
-## Parent Portal
+##  Parent Portal
 
 * Child performance dashboard
 * Attendance monitoring
@@ -44,27 +62,31 @@ CampusSync is a modern full-stack student management and academic collaboration 
 
 ---
 
-## Smart Notifications
+## 🤖 Smart Features
 
-* Telegram Bot integration
-* Attendance alerts
-* Assignment reminders
-* Parent notifications
-* Student updates
-
----
-
-## Authentication
-
-* Role-based login
-* Student authentication
-* Teacher authentication
-* Parent authentication
-* Session persistence using Local Storage
+* Telegram Bot Integration
+* Attendance Alerts
+* Assignment Reminders
+* Parent Notifications
+* Student Activity Updates
+* Live IoT Sensor Monitoring
+* AI Wellness Assistant
 
 ---
 
-# Tech Stack
+##  Authentication
+
+* Role-based Login
+* Student Authentication
+* Teacher Authentication
+* Parent Authentication
+* Local Storage Session Persistence
+* JWT Authentication (Backend)
+* Role-Based Access Control (RBAC)
+
+---
+
+# 🛠 Tech Stack
 
 ## Frontend
 
@@ -102,9 +124,9 @@ CampusSync is a modern full-stack student management and academic collaboration 
 
 * Git
 * GitHub
+* npm
 * ESLint
 * Prettier
-* npm
 
 ---
 
@@ -115,17 +137,19 @@ CampusSync/
 │
 ├── backend/
 │   ├── database/
+│   ├── express/
+│   ├── flask/
+│   ├── shared/
 │   ├── app.py
 │   ├── server.js
 │   ├── telegramService.js
-│   ├── requirements.txt
-│   └── package.json
+│   ├── package.json
+│   └── requirements.txt
 │
 ├── frontend/
 │   ├── assets/
-│   │   └── images/
-│   │
 │   ├── src/
+│   │   ├── assets/
 │   │   ├── components/
 │   │   ├── hooks/
 │   │   ├── layouts/
@@ -140,9 +164,8 @@ CampusSync/
 │   ├── package.json
 │   ├── vite.config.ts
 │   ├── tsconfig.json
-│   ├── tsconfig.app.json
-│   ├── tsconfig.node.json
-│   └── index.html
+│   ├── index.html
+│   └── ...
 │
 ├── PROJECT_ARCHITECTURE.md
 ├── README.md
@@ -152,36 +175,65 @@ CampusSync/
 
 ---
 
-# ⚙️ System Workflow
+# System Architecture
+
+```text
+                  ┌─────────────────────┐
+                  │     React + Vite    │
+                  │   TypeScript Client │
+                  └──────────┬──────────┘
+                             │
+                    REST API Requests
+                             │
+          ┌──────────────────┴──────────────────┐
+          │                                     │
+          ▼                                     ▼
+  Flask Backend                         Express Backend
+(Authentication, DB)              (Telegram & IoT Services)
+          │                                     │
+          └──────────────────┬──────────────────┘
+                             ▼
+                       SQLite Database
+                             │
+                             ▼
+                     Telegram Bot Service
+```
+
+---
+
+# Application Workflow
 
 ```text
 User Login
-      │
-      ▼
-React + TypeScript Frontend
-      │
-      ▼
-React Router Navigation
-      │
-      ▼
-REST API Calls
-      │
-      ├────────► Flask Backend
-      │               │
-      │               ▼
-      │           SQLite Database
-      │
-      └────────► Express Backend
-                      │
-                      ▼
-              Telegram Bot Service
+     │
+     ▼
+Authentication
+     │
+     ▼
+Dashboard Selection
+     │
+     ▼
+REST API Requests
+     │
+     ├────────► Flask Services
+     │
+     ├────────► Express Services
+     │
+     ▼
+SQLite Database
+     │
+     ▼
+Real-time Dashboard Updates
+     │
+     ▼
+Telegram Notifications
 ```
 
 ---
 
 # Core Modules
 
-### Student Module
+## Student Module
 
 * Dashboard
 * Attendance
@@ -190,7 +242,9 @@ REST API Calls
 * Exercises
 * Assignments
 
-### Teacher Module
+---
+
+## Teacher Module
 
 * Dashboard
 * Students
@@ -198,57 +252,119 @@ REST API Calls
 * Parent Communication
 * Teacher Profile
 
-### Parent Module
+---
+
+## Parent Module
 
 * Dashboard
 * Child Progress
 * Attendance
 * Notifications
 
-### Shared Modules
+---
+
+## Shared Modules
 
 * Authentication
 * Theme Management
-* Notifications
 * API Services
+* Notifications
 * Error Handling
 * Toast Messages
 
 ---
 
-#  Key Features
+# Security
 
-* React + TypeScript architecture
-* Modular component design
-* CSS Modules styling
-* Lazy-loaded routes
-* Error Boundary support
-* Toast notification system
-* React Query data fetching
-* Responsive dashboards
-* Reusable layouts
-* Type-safe API layer
-* Production-ready project structure
+* JWT Authentication
+* Password Hashing (bcrypt)
+* Role-Based Access Control (RBAC)
+* Helmet Security Headers
+* Express Rate Limiting
+* Secure REST APIs
+* Session Management
+
+---
+
+# REST API Overview
+
+## Authentication
+
+```
+POST /auth/register
+POST /auth/login
+```
+
+## Student
+
+```
+GET  /student/dashboard
+GET  /student/attendance
+GET  /student/mood
+POST /student/journal
+```
+
+## Teacher
+
+```
+GET    /teacher/students
+POST   /teacher/assignments
+PUT    /teacher/assignments/:id
+DELETE /teacher/assignments/:id
+```
+
+## Parent
+
+```
+GET /parent/dashboard
+```
+
+## Sensors
+
+```
+POST /api/sensors
+GET  /api/sensors/latest
+GET  /api/sensors/history
+```
+
+## Notifications
+
+```
+POST /alerts/send
+GET  /notifications
+```
 
 ---
 
 # Getting Started
 
-## Backend
+## Clone Repository
+
+```bash
+git clone https://github.com/VaishnaviPatil-gif/CampusSync.git
+
+cd CampusSync
+```
+
+---
+
+## Backend Setup
 
 ```bash
 cd backend
+
 pip install -r requirements.txt
+
 npm install
 ```
 
-Start Flask
+### Start Flask
 
 ```bash
 python app.py
 ```
 
-Start Express
+### Start Express
 
 ```bash
 node server.js
@@ -256,15 +372,19 @@ node server.js
 
 ---
 
-## Frontend
+## Frontend Setup
 
 ```bash
 cd frontend
+
 npm install
+
 npm run dev
 ```
 
-Production Build
+---
+
+## Production Build
 
 ```bash
 npm run build
@@ -272,22 +392,46 @@ npm run build
 
 ---
 
-# Future Enhancements
+# Key Highlights
 
-* AI-powered student performance prediction
-* Cloud database integration
-* Real-time WebSocket updates
-* Push notifications
-* Mobile application
-* Admin dashboard
-* Role-based permissions
-* Analytics dashboard
-* Report generation
-* Docker deployment
-
+* Modern React + TypeScript Architecture
+* Modular Component Design
+* CSS Modules Styling
+* Lazy-loaded Routes
+* Error Boundary Support
+* Toast Notification System
+* React Query Data Fetching
+* Reusable Layouts
+* Type-safe API Layer
+* IoT Sensor Integration
+* Telegram Notifications
+* Production-ready Folder Structure
 
 ---
 
-## 📄 License
+# Roadmap
 
-This project is licensed under the MIT License.
+* ✅ React + TypeScript Migration
+* ✅ Flask Backend
+* ✅ Express Backend
+* ✅ SQLite Integration
+* ✅ Telegram Notifications
+* ✅ IoT Sensor Support
+* 🔄 AI Student Performance Prediction
+* 🔄 Real-time WebSocket Updates
+* 🔄 Docker Deployment
+* 🔄 Cloud Database Integration
+* 🔄 Mobile Application
+* 🔄 Admin Dashboard
+
+---
+
+# Contributing
+
+Contributions, suggestions, and improvements are welcome.
+
+1. Fork the repository.
+2. Create a feature branch.
+3. Commit your changes.
+4. Push to your branch.
+5. Open a Pull Request.
