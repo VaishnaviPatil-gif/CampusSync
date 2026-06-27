@@ -1,4 +1,4 @@
-# CampusSync
+# CampusSync (Student360) — Educational Risk Monitoring Platform
 
 A full-stack academic management platform connecting **Students**, **Teachers**, and **Parents** through role-based dashboards, attendance tracking, mood monitoring, IoT sensor integration, and Telegram notifications.
 
@@ -92,10 +92,90 @@ CampusSync/
 ├── PROJECT_ARCHITECTURE.md
 ├── README.md
 └── LICENSE
+=======
+CampusSync is a production-grade, full-stack educational risk-monitoring and alert platform. It aggregates academic performance, attendance trends, and real-time student wellness logs (moods and journal entries) into an early-warning dashboard to surface at-risk students before dropout occurs.
+
+The system utilizes a **distributed dual-backend architecture** (Flask + Express as independent services) sharing a persistent database layer, and a modern **React + TypeScript** client-side dashboard powered by **TanStack Query** for robust state synchronization.
+
+---
+
+## 🚀 Key Features
+
+### 👤 Student Portal
+* **Interactive Dashboard:** Live insights into academic status, attendance rates, and vitals tracking.
+* **Wellness Logging:** Real-time mood check-ins and journal entries to capture mental health anomalies.
+* **Attendance Calculator:** Self-tracking tools enabling students to calculate and project attendance targets.
+* **Exercises & Recommendations:** Curated daily health challenges and suggestions based on mood metrics.
+
+### 👩‍🏫 Teacher Portal
+* **Student Monitoring & Risk Dashboard:** Interactive visual list of enrolled students showcasing attendance levels, stress trends, and flagged risk anomalies.
+* **Assignment Management:** High-performance REST interface for creating, modifying, and deleting class assignments.
+* **Communication Hub:** One-click integration triggers to message parents immediately regarding attendance drops or mood abnormalities.
+
+### 👨‍👩‍👦 Parent Portal
+* **Real-time Status Feed:** Access to real-time attendance, pending coursework, and wellness status.
+* **Direct Notifications:** Asynchronous alerting pathways ensuring parents stay updated outside the browser environment.
+
+---
+
+## 🛠️ Technology Stack
+
+### Frontend Client
+* **React 18 & TypeScript:** Built with Vite for instant server reload and type safety.
+* **TanStack Query (React Query):** Handles cache state management, background querying, and endpoint synchronization.
+* **React Router DOM v6:** Route-based code-splitting utilizing `lazy()` and `<Suspense />` for fast page responses.
+* **Vanilla CSS Modules:** Modular CSS files for isolated styling and rich visual layouts.
+
+### Backend Infrastructure
+* **Python (Flask):** Serves core transactional routing, user management, and authorization services. Utilizes the **Repository Pattern** to cleanly decouple DB queries from business logic.
+* **Node.js (Express.js):** Handles alert ingestion, logging telemetry, and external notifications orchestration.
+* **Telegram Bot API:** Dispatches asynchronous notification payloads directly to parent mobile channels.
+* **SQLite:** Shared local relational database engine with strict schemas mapping multi-profile user roles.
+
+---
+
+## 📂 Project Structure
+
+```text
+CampusSync/
+├── backend/
+│   ├── database/            # SQLite schemas, setup, and initialization scripts
+│   │   ├── schema.sql       # SQL script detailing tables and indices
+│   │   └── db_setup.py      # Python DB initialization script
+│   ├── express/             # Express.js (Node.js) runtime service
+│   │   ├── controllers/     # Payload parsing and route execution
+│   │   ├── middleware/      # CORS, Helmet, and error boundaries
+│   │   └── routes/          # Express API endpoints mapping
+│   ├── flask/               # Flask (Python) runtime service
+│   │   ├── controllers/     # Route controller endpoints
+│   │   ├── middleware/      # Custom JWT check and Rate Limiting
+│   │   ├── repositories/    # Database Repository Pattern implementations
+│   │   └── routes/          # Flask blueprints
+│   ├── app.py               # Flask main entry runner (Port 5000)
+│   ├── server.js            # Express main entry runner (Port 3001)
+│   └── requirements.txt     # Python system dependencies
+│
+├── frontend/
+│   ├── src/
+│   │   ├── components/      # Reusable visual widgets and UI elements
+│   │   ├── hooks/           # Custom React hooks (auth, animations, queries)
+│   │   ├── layouts/         # Base layout wrappers (MainLayout)
+│   │   ├── pages/           # Dashboards (Student, Teacher, Parent)
+│   │   ├── services/        # Type-safe API endpoints caller module
+│   │   ├── types/           # Global TypeScript interface definitions
+│   │   ├── App.tsx          # Main React router config and Query client setup
+│   │   └── main.tsx         # Root DOM renderer
+│   ├── package.json         # Node manifest and dependencies list
+│   └── vite.config.ts       # Vite bundler configurations
+│
+├── PROJECT_ARCHITECTURE.md  # Detailed architecture walkthrough
+└── README.md                # System documentation
+>>>>>>> 0b9e113 (docs: update project README)
 ```
 
 ---
 
+<<<<<<< HEAD
 ## System Architecture
 
 ```
@@ -148,10 +228,34 @@ GET    /api/sensors/history
 # Notifications
 POST   /alerts/send
 GET    /notifications
+=======
+## ⚙️ Data Flow & System Workflow
+
+```text
+                  +---------------------------+
+                  | React Router Client (Vite)|
+                  +-------------+-------------+
+                                |
+                   JSON Fetch   |   JSON Fetch
+                 +--------------+--------------+
+                 |                             |
+                 v                             v
+     +-----------+-----------+     +-----------+-----------+
+     | Flask Backend (Port 5000) | | Express Backend (3001) |
+     +-----------+-----------+     +-----------+-----------+
+                 |                             |
+                 | Write / Read                | Asynchronous Alert
+                 v                             v
+         [( SQLite DB )]              [[ Telegram Bot API ]]
+                 ^                             |
+                 |                             v
+                 +----------------------- Parents / Chat ID
+>>>>>>> 0b9e113 (docs: update project README)
 ```
 
 ---
 
+<<<<<<< HEAD
 ## Getting Started
 
 ### Prerequisites
@@ -167,13 +271,45 @@ cd CampusSync
 ```
 
 ### 2. Backend setup
+=======
+## 🔑 REST API Interface Specification
 
+| Endpoint | Method | Service | Access Level | Purpose |
+|---|---|---|---|---|
+| `/api/auth/register` | `POST` | Flask | Public | Registers a new account (Student/Teacher/Parent) |
+| `/api/auth/login` | `POST` | Flask | Public | Authenticates credentials, returns signed JWT |
+| `/api/student/dashboard` | `GET` | Flask | Student | Fetches real-time academic, attendance & wellness KPIs |
+| `/api/teacher/students` | `GET` | Express | Teacher | Lists students, showing historical stress logs & risk values |
+| `/api/teacher/assignments`| `POST`/`GET` | Express | Teacher | Manages tasks and posts assignments to specific classes |
+| `/api/parent/dashboard` | `GET` | Flask | Parent | Monitors academic performance and alerts for child |
+| `/api/sensors/latest` | `GET` | Express | Authenticated | Fetches latest vital values (Heart Rate, Stress Index) |
+
+---
+
+## 🚀 Installation & Local Setup
+
+### Prerequisite Environment
+Create a `.env` file in the `backend/` directory:
+```env
+FLASK_SECRET_KEY=replace-with-a-long-random-secret
+TELEGRAM_BOT_TOKEN=replace-with-telegram-bot-token
+TELEGRAM_DEFAULT_CHAT_ID=replace-with-telegram-chat-id
+EXPRESS_PORT=3001
+FLASK_PORT=5000
+```
+>>>>>>> 0b9e113 (docs: update project README)
+
+### 1. Database Setup
+To initialize and populate the SQLite database schema with starting mock tables and relationships, run:
 ```bash
+# Navigate to the backend folder
 cd backend
-pip install -r requirements.txt
-npm install
+
+# Execute database setup script
+python database/db_setup.py
 ```
 
+<<<<<<< HEAD
 Start the Flask server:
 ```bash
 python app.py
@@ -185,12 +321,32 @@ node server.js
 ```
 
 ### 3. Frontend setup
+=======
+### 2. Launch Backend Services
+You will need two terminal windows open to run both independent runtimes locally:
 
+* **Terminal A (Flask API):**
+  ```bash
+  cd backend
+  pip install -r requirements.txt
+  python app.py
+  ```
+* **Terminal B (Express Alerts Service):**
+  ```bash
+  cd backend
+  npm install
+  node server.js
+  ```
+>>>>>>> 0b9e113 (docs: update project README)
+
+### 3. Launch Frontend Client
+In a new terminal window:
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
+<<<<<<< HEAD
 
 The app will be available at `http://localhost:5173`.
 
@@ -242,4 +398,17 @@ Contributions, suggestions, and improvements are welcome.
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
+
+=======
+Open your browser and navigate to `http://localhost:5173`.
+
+---
+
+## 🛡️ Production Optimizations & Best Practices
+* **Middleware Integrity:** Configured Express API with `Helmet` (header security checks) and CORS validations.
+* **Rate Limiting:** Added a custom sliding-window request throttling filter in the Flask pipeline to prevent API brute-forcing.
+* **Code Splitting:** React routes use `React.lazy()` boundaries, minimizing visual layout shift and lowering initial bundle payloads for mobile networks.
+* **State Caching:** TanStack Query prevents duplicate fetch cascades, maintaining cached data models client-side with configurable `staleTime` validation boundaries.
+
+---
 
